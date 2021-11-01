@@ -22,6 +22,8 @@ SCRIPT
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "centos/8"
 
+  config.vm.provision "shell", inline: $k3s_script
+
   # Server
   config.vm.define "abarthelS" do |s|
     s.vm.hostname = "abarthelS"
