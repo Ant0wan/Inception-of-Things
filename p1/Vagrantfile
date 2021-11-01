@@ -4,21 +4,19 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 VAGRANTFILE_API_VERSION = "2"
 
-$k3s_server_script = <<-SCRIPT
-#!/usr/bin/env bash
-set -x
-export PATH=${PATH}:/usr/local/bin/
+$k3s_script = <<-SCRIPT
 curl -sfL https://get.k3s.io | sh -
+SCRIPT
+
+$k3s_server_script = <<-SCRIPT
+export PATH=$PATH:/usr/local/bin/
 k3s server &
 sudo cat /var/lib/rancher/k3s/server/node-token | sudo tee /vagrant/token
 SCRIPT
 
 $k3s_agent_script = <<-SCRIPT
-#!/usr/bin/env bash
-set -x
-export PATH=${PATH}:/usr/local/bin/
-k3s agent -s https://server.k3s.local:6443 \
--t $(cat /vagrant/token) --with-node-id 1
+export PATH=$PATH:/usr/local/bin/
+k3s agent -s https://server.k3s.local:6443 -t $(cat /vagrant/token) --with-node-id 1
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -34,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     s.vm.network "private_network", ip: "192.168.42.110"
     s.vm.provision "shell", inline: $k3s_server_script
-
+    s.vm.synced_folder '.', '/vagrant', :nfs =>true
     #s.vm.synced_folder './', '/vagrant', type: 'nfs', nfs_udp: false, nfs_version: 3
     #s.vm.provision "shell", inline: "rsync /vagrant/token vagrant@agent.k3s.local:/vagrant"
   end
