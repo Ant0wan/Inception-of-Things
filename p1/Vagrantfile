@@ -4,14 +4,15 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/8"
 
-  config.vm.define "abarthelS" do |abarthelS|
-    abarthelS.vm.hostname = "abarthelS"
-    #abarthelS.vm.provider "virtualbox" do |v|
+  config.vm.define "abarthelS" do |s|
+    s.vm.hostname = "abarthelS"
+    #s.vm.provider "virtualbox" do |v|
     #  v.memory = "512"
     #  v.cpus = "1"
     #  v.provision :shell, path: "server.sh"
     #end
-    abarthelS.vm.network :public_network
+    s.vm.network "public_network"
+    #abarthelS.vm.network :public_network
   #    :dev => "eth1",
   #    :mode => "bridge",
   #    :type => "bridge",
