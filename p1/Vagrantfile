@@ -17,7 +17,8 @@ $k3s_agent_script = <<-SCRIPT
 #!/usr/bin/env bash
 set -x
 export PATH=${PATH}:/usr/local/bin/
-curl -sfL https://get.k3s.io | K3S_URL=https://server.k3s.local:6443 K3S_TOKEN=/vagrant/token sh -
+k3s agent -s https://server.k3s.local:6443 \
+-t $(cat /vagrant/token) --with-node-id 1
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
