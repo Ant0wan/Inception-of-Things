@@ -6,22 +6,23 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "abarthelS" do |abarthelS|
     abarthelS.vm.hostname = "abarthelS"
-    abarthelS.vm.network "forwarded_port", guest: 80, host: 8080
+    abarthelS.vm.network "public_network", ip: "192.168.42.110"
     abarthelS.vm.provider "virtualbox" do |v|
       v.memory = "512"
       v.cpus = "1"
+      v.provision :shell, path: "server.sh"
     end
-    abarthelS.vm.provision :shell, path: "server.sh"
   end
 
   config.vm.define "abarthelSW" do |abarthelSW|
     abarthelSW.vm.hostname = "abarthelSW"
-    abarthelSW.vm.network "forwarded_port", guest: 80, host: 8080
+    abarthelSW.vm.provision :shell, path: "serverworker.sh"
+    abarthelSW.vm.network "public_network", ip: "192.168.42.111"
     abarthelSW.vm.provider "virtualbox" do |v|
       v.memory = "512"
       v.cpus = "1"
+      v.provision :shell, path: "serverworker.sh"
     end
-    abarthelSW.vm.provision :shell, path: "serverworker.sh"
   end
 
 end
