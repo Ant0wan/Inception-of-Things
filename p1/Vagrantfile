@@ -8,19 +8,14 @@ Vagrant.configure("2") do |config|
     s.vm.hostname = "abarthelS"
     config.vm.provider "libvirt" do |v|
       v.qemu_use_session = false
+      v.memory = "512"
+      v.cpus = "1"
     end
 
     #s.vm.provider "virtualbox" do |v|
-    #  v.memory = "512"
-    #  v.cpus = "1"
     #  v.provision :shell, path: "server.sh"
     #end
     s.vm.network "private_network", ip: "192.168.42.110"
-    #abarthelS.vm.network :public_network
-  #    :dev => "eth1",
-  #    :mode => "bridge",
-  #    :type => "bridge",
-  #    :ip => "192.168.42.110"
   end
 
 #  config.vm.define "abarthelSW" do |abarthelSW|
