@@ -1,9 +1,0 @@
-vagrant init centos/8
-vagrant up
-vagrant ssh
-vagrant box list
-vagrant box remove <tag>
-vagrant destroy
-vagrant reload
-vagrant up --provider=libvirt
-export VAGRANT_DEFAULT_PROVIDER=libvirt
