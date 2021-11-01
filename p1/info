@@ -1,0 +1,7 @@
+vagrant init centos/8
+vagrant up
+vagrant ssh
+vagrant box list
+vagrant box remove <tag>
+vagrant destroy
+vagrant reload
