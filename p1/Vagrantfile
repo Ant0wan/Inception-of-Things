@@ -13,7 +13,7 @@ k3s server &
 sudo cat /var/lib/rancher/k3s/server/node-token | sudo tee /vagrant/token
 SCRIPT
 
-$k3s_agent_script = <<- SCRIPT
+$k3s_agent_script = <<-SCRIPT
 #!/usr/bin/env bash
 set -x
 export PATH=${PATH}:/usr/local/bin/
