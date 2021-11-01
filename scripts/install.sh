@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+set -e
 sudo dnf install -y vagrant
+exit 0
 # https://www.virtualbox.org/wiki/Linux_Downloads
 VERSION='6.1.28'
 PKG="VirtualBox-6.1-${VERSION}_147628_fedora33-1.x86_64.rpm"

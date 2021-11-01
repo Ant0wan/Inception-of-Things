@@ -6,3 +6,4 @@ vagrant box remove <tag>
 vagrant destroy
 vagrant reload
 vagrant up --provider=libvirt
+export VAGRANT_DEFAULT_PROVIDER=libvirt
