@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+VAGRANTFILE_API_VERSION = "2"
+
 $k3s_script = <<-SCRIPT
 curl -sfL https://get.k3s.io | sh -
 SCRIPT
@@ -15,7 +18,7 @@ SCRIPT
 
 #curl -sfL https://get.k3s.io | K3S_URL=https://server.k3s.local:6443 K3S_TOKEN=Hello buddy sh -
 
-Vagrant.configure("2") do |config|
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "centos/8"
   config.vm.provision "shell", inline: $k3s_script
 
@@ -29,19 +32,25 @@ Vagrant.configure("2") do |config|
     end
     s.vm.network "private_network", ip: "192.168.42.110"
     s.vm.provision "shell", inline: $server_script
-    s.vm.synced_folder './', '/vagrant', type: 'nfs', nfs_udp: false, nfs_version: 4
+
+    #s.vm.synced_folder './', '/vagrant', type: 'nfs', nfs_udp: false, nfs_version: 4
+    #s.vm.synced_folder ".", "/vagrant",
+    #  type: "nfs", nfs_udp: false, nfs_version: 4,
+    #  linux__nfs_options: ['rw','no_subtree_check','all_squash','async']
+
+    s.vm.provision "shell", inline: "rsync /vagrant/token vagrant@agent.k3s.local:/vagrant"
   end
 
   # Agent
-#  config.vm.define "abarthelSW" do |sw|
-#    sw.vm.hostname = "abarthelSW"
-#    sw.vm.provider "libvirt" do |w|
-#      w.qemu_use_session = false
-#      w.memory = "512"
-#      w.cpus = "1"
-#      #w.provision :shell, path: "agent.sh"
-#    end
-#    sw.vm.network "private_network", ip: "192.168.42.111"
-#  end
+  config.vm.define "abarthelSW" do |sw|
+    sw.vm.hostname = "abarthelSW"
+    sw.vm.provider "libvirt" do |w|
+      w.qemu_use_session = false
+      w.memory = "512"
+      w.cpus = "1"
+      #w.provision :shell, path: "agent.sh"
+    end
+    sw.vm.network "private_network", ip: "192.168.42.111"
+  end
 
 end
