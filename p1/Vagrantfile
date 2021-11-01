@@ -15,15 +15,13 @@ SCRIPT
 
 $k3s_agent_script = <<-SCRIPT
 export PATH=$PATH:/usr/local/bin/
-scp -o StrictHostKeyChecking=no root@server.k3s.local:/var/lib/rancher/k3s/server/node-token /vagrant/token
-k3s agent -s https://server.k3s.local:6443 -t $(cat /vagrant/token) --with-node-id 1
+#scp -o StrictHostKeyChecking=no root@server.k3s.local:/var/lib/rancher/k3s/server/node-token /vagrant/token
+#k3s agent -s https://server.k3s.local:6443 -t $(cat /vagrant/token) --with-node-id 1
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "centos/8"
   config.vm.provision "shell", inline: $k3s_script
-  config.vm.provision "file", source: "./.ssh/id_rsa.pub", destination: "/tmp/id_rsa.pub"
-  config.vm.provision "file", source: "./.ssh/id_rsa", destination: "/tmp/id_rsa"
   # Server
   config.vm.define "abarthelS", primary: true do |s|
     s.vm.hostname = "abarthelS"
