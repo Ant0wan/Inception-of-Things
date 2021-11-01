@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", inline: $k3s_script
 
   # Server
-  config.vm.define "abarthelS" do |s|
+  config.vm.define "abarthelS", primary: true do |s|
     s.vm.hostname = "abarthelS"
     config.vm.provider "libvirt" do |c|
       c.qemu_use_session = false
