@@ -6,25 +6,25 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "abarthelS" do |s|
     s.vm.hostname = "abarthelS"
-    config.vm.provider "libvirt" do |v|
-      v.qemu_use_session = false
-      v.memory = "512"
-      v.cpus = "1"
+    config.vm.provider "libvirt" do |c|
+      c.qemu_use_session = false
+      c.memory = "512"
+      c.cpus = "1"
     end
-
-    #s.vm.provider "virtualbox" do |v|
-    #  v.provision :shell, path: "server.sh"
-    #end
     s.vm.network "private_network", ip: "192.168.42.110"
+
+    #  v.provision :shell, path: "server.sh"
   end
 
-#  config.vm.define "abarthelSW" do |abarthelSW|
-#    abarthelSW.vm.hostname = "abarthelSW"
-#    abarthelSW.vm.provider "virtualbox" do |v|
-#      v.memory = "512"
-#      v.cpus = "1"
-#      v.provision :shell, path: "serverworker.sh"
-#    end
-#  end
+  config.vm.define "abarthelSW" do |sw|
+    sw.vm.hostname = "abarthelSW"
+    sw.vm.provider "libvirt" do |w|
+      c.qemu_use_session = false
+      w.memory = "512"
+      w.cpus = "1"
+      #w.provision :shell, path: "serverworker.sh"
+    end
+    sw.vm.network "private_network", ip: "192.168.42.111"
+  end
 
 end
