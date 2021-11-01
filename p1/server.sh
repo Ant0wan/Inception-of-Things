@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo OK!
+echo "I am a control plane and I am fine !"
 #dnf update
 #dnf install -y apache2
 #if ! [ -L /var/www ]; then
