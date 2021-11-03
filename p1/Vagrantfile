@@ -5,12 +5,13 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 VAGRANTFILE_API_VERSION = "2"
 
 $k3s_script = <<-SCRIPT
-bash -c 'curl -sfL https://get.k3s.io | sh -' > toto
+curl -sfL https://get.k3s.io | sh -
 SCRIPT
 
 $k3s_server_script = <<-SCRIPT
 export PATH=$PATH:/usr/local/bin/
 k3s server &
+cat /etc/rancher/k3s/k3s.yaml
 SCRIPT
 
 $k3s_agent_script = <<-SCRIPT
@@ -35,9 +36,10 @@ def provision_instance(config, node_name, ipv4)
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  #config.vm.provision "shell", inline: $k3s_script
   # Server
   provision_instance(config, "abarthelS", "192.168.42.110")
+  config.vm.provision "shell", inline: $k3s_server_script
+  config.vm.synced_folder ".", "/vagrant"
   # Agent
   provision_instance(config, "abarthelSW", "192.168.42.111")
   #sw.vm.provision "shell", inline: $k3s_agent_script
