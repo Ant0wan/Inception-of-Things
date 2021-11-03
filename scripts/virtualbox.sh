@@ -41,3 +41,6 @@ sudo sudo dnf -y install vagrant
 #'
 #sudo gpasswd -a ${USER} libvirt
 #newgrp libvirt
+
+#vagrant plugin install vagrant-vbguest
+vagrant plugin install vagrant-vbguest --plugin-version 0.21
