@@ -22,7 +22,6 @@ SCRIPT
 def provision_instance(config, node_name, ipv4)
   config.vm.box = "centos/8"
   config.vm.define node_name, primary: true do |node|
-    node.vm.name = node_name
     node.vm.hostname = node_name
     config.vm.provider "virtualbox" do |vb|
       vb.memory = "512"
