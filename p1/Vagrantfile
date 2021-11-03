@@ -5,7 +5,7 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 VAGRANTFILE_API_VERSION = "2"
 
 $k3s_script = <<-SCRIPT
-curl -sfL https://get.k3s.io | sh -
+bash -c 'curl -sfL https://get.k3s.io | sh -' > toto
 SCRIPT
 
 $k3s_server_script = <<-SCRIPT
@@ -30,7 +30,7 @@ def provision_instance(config, node_name, ipv4)
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
     node.vm.network "private_network", ip: ipv4
-    #node.vm.provision "shell", inline: $k3s_server_script
+    node.vm.provision "shell", inline: $k3s_script
   end
 end
 
