@@ -42,6 +42,7 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Server
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox", automount: true
   provision_instance(config, "abarthelS", "192.168.42.110", "server")
   # Agent
   #provision_instance(config, "abarthelSW", "192.168.42.111")
