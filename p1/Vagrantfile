@@ -3,6 +3,7 @@
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 VAGRANTFILE_API_VERSION = "2"
+URL="http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box"
 
 $k3s_script = <<-SCRIPT
 curl -sfL https://get.k3s.io | sh -
@@ -22,6 +23,7 @@ SCRIPT
 
 def provision_instance(config, node_name, ipv4, type)
   config.vm.box = "centos/8"
+  config.vm.box_url = URL
   config.vm.define node_name, primary: true do |node|
     node.vm.hostname = node_name
     config.vm.provider "virtualbox" do |vb|
