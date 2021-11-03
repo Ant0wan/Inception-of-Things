@@ -11,8 +11,8 @@ SCRIPT
 $k3s_server_script = <<-SCRIPT
 export PATH=$PATH:/usr/local/bin/
 k3s server &
-cat /etc/rancher/k3s/k3s.yaml
 SCRIPT
+#cat /etc/rancher/k3s/k3s.yaml
 
 $k3s_agent_script = <<-SCRIPT
 export PATH=$PATH:/usr/local/bin/
@@ -20,7 +20,7 @@ export PATH=$PATH:/usr/local/bin/
 #k3s agent -s https://server.k3s.local:6443 -t $(cat /vagrant/token) --with-node-id 1
 SCRIPT
 
-def provision_instance(config, node_name, ipv4)
+def provision_instance(config, node_name, ipv4, type)
   config.vm.box = "centos/8"
   config.vm.define node_name, primary: true do |node|
     node.vm.hostname = node_name
@@ -32,15 +32,18 @@ def provision_instance(config, node_name, ipv4)
     end
     node.vm.network "private_network", ip: ipv4
     node.vm.provision "shell", inline: $k3s_script
+    if type = "server"
+      config.vm.provision "shell", inline: $k3s_server_script
+    else
+      config.vm.provision "shell", inline: $k3s_agent_script
+    end
+    config.vm.synced_folder ".", "/var/lib/rancher/k3s/server/node-token"
   end
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Server
-  provision_instance(config, "abarthelS", "192.168.42.110")
-  config.vm.provision "shell", inline: $k3s_server_script
-  config.vm.synced_folder ".", "/vagrant"
+  provision_instance(config, "abarthelS", "192.168.42.110", "server")
   # Agent
-  provision_instance(config, "abarthelSW", "192.168.42.111")
-  #sw.vm.provision "shell", inline: $k3s_agent_script
+  #provision_instance(config, "abarthelSW", "192.168.42.111")
 end
