@@ -37,7 +37,6 @@ def provision_instance(config, node_name, ipv4, type)
     else
       config.vm.provision "shell", inline: $k3s_agent_script
     end
-    config.vm.synced_folder ".", "/var/lib/rancher/k3s/server/node-token"
   end
 end
 
