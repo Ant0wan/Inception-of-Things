@@ -14,7 +14,7 @@ wget https://download.virtualbox.org/virtualbox/6.1.22/Oracle_VM_VirtualBox_Exte
 # Install Vagrant
 sudo sudo dnf -y install vagrant
 
-
+# https://developer.fedoraproject.org/tools/vagrant/vagrant-virtualbox.html
 
 #dnf install -y gcc libvirt libvirt-devel libxml2-devel make ruby-devel libguestfs-tools
 #export CONFIGURE_ARGS="with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib64"
