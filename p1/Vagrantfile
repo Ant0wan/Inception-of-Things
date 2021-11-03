@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 VAGRANTFILE_API_VERSION = "2"
 
 $k3s_script = <<-SCRIPT
@@ -19,30 +19,26 @@ export PATH=$PATH:/usr/local/bin/
 #k3s agent -s https://server.k3s.local:6443 -t $(cat /vagrant/token) --with-node-id 1
 SCRIPT
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+def provision_instance(config, node_name, ipv4)
   config.vm.box = "centos/8"
-  config.vm.provision "shell", inline: $k3s_script
-  # Server
-  config.vm.define "abarthelS", primary: true do |s|
-    s.vm.hostname = "abarthelS"
-    config.vm.provider "libvirt" do |c|
-      c.qemu_use_session = false
-      c.memory = "512"
-      c.cpus = "1"
+  config.vm.define node_name, primary: true do |node|
+    node.vm.hostname = node_name
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = "512"
+      vb.cpus = "1"
+      vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
-    s.vm.network "private_network", ip: "192.168.42.110"
-    s.vm.provision "shell", inline: $k3s_server_script
+    node.vm.network "private_network", ip: ipv4
+    #node.vm.provision "shell", inline: $k3s_server_script
   end
-  # Agent
-  config.vm.define "abarthelSW" do |sw|
-    sw.vm.hostname = "abarthelSW"
-    sw.vm.provider "libvirt" do |w|
-      w.qemu_use_session = false
-      w.memory = "512"
-      w.cpus = "1"
-    end
-    sw.vm.network "private_network", ip: "192.168.42.111"
-    sw.vm.provision "shell", inline: $k3s_agent_script
-  end
+end
 
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  #config.vm.provision "shell", inline: $k3s_script
+  # Server
+  provision_instance(config, "abarthelS", "192.168.42.110")
+  # Agent
+  provision_instance(config, "abarthelSW", "192.168.42.111")
+  #sw.vm.provision "shell", inline: $k3s_agent_script
 end

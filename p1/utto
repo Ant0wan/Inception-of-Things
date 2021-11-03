@@ -1,6 +1,0 @@
-https://tferdinand.net/creer-un-cluster-kubernetes-local-avec-vagrant/
-
-https://github.com/vagrant-libvirt/vagrant-libvirt/issues/745
-
-token generated before deployment:
-https://github.com/rgl/k3s-vagrant/blob/master/Vagrantfile
