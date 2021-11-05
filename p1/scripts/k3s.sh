@@ -7,8 +7,7 @@ if [ $1 == "server" ]; then
 	k3s server &
 	cp /etc/rancher/k3s/k3s.yaml /vagrant/
 	cp /var/lib/rancher/k3s/server/node-token /vagrant/
-	echo "I am a server"
 else
 	#k3s agent -s https://server.k3s.local:6443 -t $(cat /vagrant/token) --with-node-id 1
-	echo "I am an agent"
+	k3s agent -s https://$2:6443 -t $(cat /vagrant/node-token) --with-node-id 1
 fi
