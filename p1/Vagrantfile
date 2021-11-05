@@ -1,13 +1,13 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+BOX_URL="http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box"
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 VAGRANTFILE_API_VERSION = "2"
-BOX_URL="http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box"
 
 require 'yaml'
-serv = YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml"))
 agent = YAML.load_file(File.join(File.dirname(__FILE__), "confs/agent.yaml"))
+serv = YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml"))
 
 def provision_instance(config, node_name, ipv4, type)
   config.vm.box = "centos/8"
