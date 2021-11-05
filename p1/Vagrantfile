@@ -12,8 +12,9 @@ SCRIPT
 $k3s_server_script = <<-SCRIPT
 export PATH=$PATH:/usr/local/bin/
 k3s server &
+cp /etc/rancher/k3s/k3s.yaml /vagrant/
+cp /var/lib/rancher/k3s/server/node-token /vagrant/
 SCRIPT
-#cat /etc/rancher/k3s/k3s.yaml
 
 $k3s_agent_script = <<-SCRIPT
 export PATH=$PATH:/usr/local/bin/
