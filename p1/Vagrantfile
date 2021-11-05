@@ -6,11 +6,13 @@ VAGRANTFILE_API_VERSION = "2"
 URL="http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box"
 
 $k3s_script = <<-SCRIPT
-curl -sfL https://get.k3s.io | sh -
 SCRIPT
 
 $k3s_server_script = <<-SCRIPT
 export PATH=$PATH:/usr/local/bin/
+mkdir -p /etc/rancher/k3s/
+cp /vagrant/confs/config.yaml /etc/rancher/k3s/config.yaml
+curl -sfL https://get.k3s.io | sh -
 k3s server &
 cp /etc/rancher/k3s/k3s.yaml /vagrant/
 cp /var/lib/rancher/k3s/server/node-token /vagrant/
