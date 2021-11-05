@@ -7,27 +7,27 @@ VAGRANTFILE_API_VERSION = "2"
 
 require 'yaml'
 agent = YAML.load_file(File.join(File.dirname(__FILE__), "confs/agent.yaml"))
-serv = YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml"))
+server = YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml"))
 
-def provision_instance(config, node_name, ipv4, type)
+def provision_instance(config, yaml) #node_name, ipv4, type)
   config.vm.box = "centos/8"
   config.vm.box_url = BOX_URL
-  config.vm.define node_name, primary: true do |node|
-    node.vm.hostname = node_name
+  config.vm.define yaml.fetch('node-name'), primary: true do |node|
+    node.vm.hostname = yaml.fetch('node-name')
     config.vm.provider "virtualbox" do |vb|
       vb.memory = "512"
       vb.cpus = "1"
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
-    node.vm.network "private_network", ip: ipv4
-    node.vm.provision "shell", path: "./scripts/k3s.sh", args: [type]
+    node.vm.network "private_network", ip: yaml.fetch('bind-address')
+    node.vm.provision "shell", path: "./scripts/k3s.sh", args: [yaml.fetch('type')]
     node.vm.synced_folder ".", "/vagrant", type: "nfs"
   end
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vbguest.auto_update = false
-  provision_instance(config, serv.fetch('node-name'), serv.fetch('bind-address'), "server")
+  provision_instance(config, server)
   #provision_instance(config, agent.fetch('node-name'), agent.fetch('bind-address'), "agent")
 end
