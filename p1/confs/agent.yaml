@@ -1,9 +1,9 @@
-node-name: "abarthelS"
+node-name: "abarthelSW"
 channel: "stable"
-bind-address: "192.168.42.110"
+bind-address: "192.168.42.111"
 flannel-iface: "eth1"
 write-kubeconfig-mode: "0644"
 node-label:
-  - "node=server"
+  - "node=agent"
   - "distro=k3s"
   - "inception-of-things=p1"
