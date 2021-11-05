@@ -34,18 +34,17 @@ def provision_instance(config, node_name, ipv4, type)
     end
     node.vm.network "private_network", ip: ipv4
     node.vm.provision "shell", inline: $k3s_script
-    if type = "server"
-      config.vm.provision "shell", inline: $k3s_server_script
+    if type == "server"
+      node.vm.provision "shell", inline: $k3s_server_script
     else
-      config.vm.provision "shell", inline: $k3s_agent_script
+      node.vm.provision "shell", inline: $k3s_agent_script
     end
+    node.vm.synced_folder ".", "/vagrant", type: "nfs"
   end
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # Server
-  config.vm.synced_folder ".", "/vagrant", type: "virtualbox", automount: true
+  config.vbguest.auto_update = false
   provision_instance(config, "abarthelS", "192.168.42.110", "server")
-  # Agent
   #provision_instance(config, "abarthelSW", "192.168.42.111")
 end
