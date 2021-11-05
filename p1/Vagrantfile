@@ -3,27 +3,11 @@
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 VAGRANTFILE_API_VERSION = "2"
-URL="http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box"
-
-$k3s_server_script = <<-SCRIPT
-export PATH=$PATH:/usr/local/bin/
-mkdir -p /etc/rancher/k3s/
-cp /vagrant/confs/config.yaml /etc/rancher/k3s/config.yaml
-curl -sfL https://get.k3s.io | sh -
-k3s server &
-cp /etc/rancher/k3s/k3s.yaml /vagrant/
-cp /var/lib/rancher/k3s/server/node-token /vagrant/
-SCRIPT
-
-$k3s_agent_script = <<-SCRIPT
-export PATH=$PATH:/usr/local/bin/
-#scp -o StrictHostKeyChecking=no root@server.k3s.local:/var/lib/rancher/k3s/server/node-token /vagrant/token
-#k3s agent -s https://server.k3s.local:6443 -t $(cat /vagrant/token) --with-node-id 1
-SCRIPT
+BOX_URL="http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box"
 
 def provision_instance(config, node_name, ipv4, type)
   config.vm.box = "centos/8"
-  config.vm.box_url = URL
+  config.vm.box_url = BOX_URL
   config.vm.define node_name, primary: true do |node|
     node.vm.hostname = node_name
     config.vm.provider "virtualbox" do |vb|
@@ -33,13 +17,7 @@ def provision_instance(config, node_name, ipv4, type)
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
     node.vm.network "private_network", ip: ipv4
-    node.vm.provision "shell", inline: $k3s_script
-    if type == "server"
-      node.vm.provision "shell", inline: $k3s_server_script
-      node.vm.provision "shell", path: "./scripts/k3s.sh", args: [node_name]
-    else
-      node.vm.provision "shell", inline: $k3s_agent_script
-    end
+    node.vm.provision "shell", path: "./scripts/k3s.sh", args: [type]
     node.vm.synced_folder ".", "/vagrant", type: "nfs"
   end
 end
@@ -47,5 +25,5 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vbguest.auto_update = false
   provision_instance(config, "abarthelS", "192.168.42.110", "server")
-  #provision_instance(config, "abarthelSW", "192.168.42.111")
+  #provision_instance(config, "abarthelSW", "192.168.42.111", "agent")
 end
