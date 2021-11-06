@@ -1,9 +1,11 @@
-type: "agent"
-node-name: "abarthelSW"
+type: agent
+node-name: abarthelSW
 channel: "stable"
 bind-address: "192.168.42.111"
-flannel-iface: "eth1"
-write-kubeconfig-mode: "0644"
+flannel-iface: eth1
+token-file: /vagrant/node-token
+url: "https://server.k3s.local:6443"
+with-node-id: 1
 node-label:
   - "node=agent"
   - "distro=k3s"
