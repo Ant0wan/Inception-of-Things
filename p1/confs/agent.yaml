@@ -1,4 +1,4 @@
-type: agent
+exec: agent
 node-name: abarthelSW
 channel: "stable"
 bind-address: "192.168.42.111"

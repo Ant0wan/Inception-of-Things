@@ -1,8 +1,8 @@
-type: "server"
-node-name: "abarthelS"
-channel: "stable"
+exec: server
+node-name: abarthelS
+channel: stable
 bind-address: "192.168.42.110"
-flannel-iface: "eth1"
+flannel-iface: eth1
 write-kubeconfig-mode: "0644"
 node-label:
   - "node=server"
