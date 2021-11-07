@@ -13,7 +13,7 @@ cluster = {
 		:ip => "192.168.42.110",
 		:cpus => 6,
 		:mem => 2048,
-		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml")) },
+		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/config.yaml")) },
 }
 
 def provision_instance(config, host, info)
