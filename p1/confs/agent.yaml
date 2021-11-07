@@ -4,6 +4,4 @@ server: 'https://192.168.42.110:6443'
 flannel-iface: 'eth1'
 with-node-id: 0
 node-label:
-  - 'node=agent'
-  - 'distro=k3s'
   - 'inception-of-things=p1'
