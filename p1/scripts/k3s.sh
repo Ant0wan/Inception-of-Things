@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 export PATH=$PATH:/usr/local/bin/
 mkdir -p /etc/rancher/k3s/
-cp /vagrant/confs/$1.yaml /etc/rancher/k3s/$1.yaml
+cp /vagrant/confs/$1.yaml /etc/rancher/k3s/config.yaml
 curl -sfL https://get.k3s.io | sh -s -
 if [ $1 == "server" ]; then
 	cp /var/lib/rancher/k3s/server/node-token /vagrant/
