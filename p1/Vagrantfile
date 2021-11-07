@@ -44,7 +44,10 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vbguest.auto_update = false
-	cluster.each_with_index do |(host, info)|
-  		provision_instance(config, host, info)
-	end
+    cluster.each_with_index do |(host, info)|
+      provision_instance(config, host, info)
+    end
+  config.trigger.before :destroy do |trigger|
+    trigger.run = {inline: "rm -f ./k3s.sh ./node-token"}
+  end
 end
