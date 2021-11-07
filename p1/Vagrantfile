@@ -20,8 +20,8 @@ def provision_instance(config, yaml)
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
-    node.vm.network "private_network", ip: yaml.fetch('bind-address')
-    if yaml.has_field('server')
+    node.vm.network "private_network", ip: yaml.fetch('node-ip')
+    if yaml.has_key?('server')
       node.vm.provision "shell", path: "./scripts/k3s.sh", args: ['agent']
     else
       node.vm.provision "shell", path: "./scripts/k3s.sh", args: ['server']
