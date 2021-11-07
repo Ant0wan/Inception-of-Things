@@ -1,3 +1,4 @@
+role: server
 node-name: abarthelS
 bind-address: "192.168.42.110"
 node-ip: "192.168.42.110"
