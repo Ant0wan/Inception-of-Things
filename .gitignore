@@ -1,1 +1,4 @@
 p1/.vagrant/
+p1/k3s.yaml
+p1/node-token
+*.swp

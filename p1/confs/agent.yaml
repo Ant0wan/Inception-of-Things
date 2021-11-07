@@ -1,8 +1,10 @@
-token-file: "/vagrant/node-token"
-server: "https://192.168.42.110:6443"
-node-name: abarthelSW
+token-file: '/vagrant/node-token'
+server: 'https://192.168.42.110:6443'
+node-name: 'abarthelSW'
+node-ip: '192.168.42.111'
 with-node-id: 1
+flannel-iface: 'eth1'
 node-label:
-  - "node=agent"
-  - "distro=k3s"
-  - "inception-of-things=p1"
+  - 'node=agent'
+  - 'distro=k3s'
+  - 'inception-of-things=p1'
