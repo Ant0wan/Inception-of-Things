@@ -1,7 +1,6 @@
 token-file: "/vagrant/node-token"
 server: "https://192.168.42.110:6443"
 node-name: abarthelSW
-node-ip: "192.168.42.111"
 with-node-id: 1
 node-label:
   - "node=agent"
