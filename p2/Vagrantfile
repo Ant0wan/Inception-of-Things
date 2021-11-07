@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
+require 'yaml'
+
+cluster = {
+  "server" => {
+		:box => "centos/8",
+		:url => "http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box",
+		:ip => "192.168.42.110",
+		:cpus => 6,
+		:mem => 2048,
+		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml")) },
+}
+
+def provision_instance(config, host, info)
+  config.vm.box = info[:box]
+  config.vm.box_url = info[:url]
+  config.vm.define info[:yaml].fetch('node-name'), primary: true do |node|
+    node.vm.hostname = info[:yaml].fetch('node-name')
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = info[:mem]
+      vb.cpus = info[:cpus]
+      vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    end
+    node.vm.network "private_network", ip: info[:ip]
+    node.vm.provision "shell", path: "./scripts/k3s.sh", run: "once"
+    node.vm.synced_folder ".", "/vagrant", type: "nfs"
+  end
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vbguest.auto_update = false
+	cluster.each_with_index do |(host, info)|
+  		provision_instance(config, host, info)
+	end
+end
