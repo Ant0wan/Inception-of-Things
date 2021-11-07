@@ -1,43 +1,50 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-BOX_URL="http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box"
-ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 VAGRANTFILE_API_VERSION = "2"
-
-cluster = {
-  "server" => { :ip => "192.168.42.110", :cpus => 1, :mem => 512 },
-  "agent" => { :ip => "192.168.42.111", :cpus => 1, :mem => 512 }
-}
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
 require 'yaml'
-agent = YAML.load_file(File.join(File.dirname(__FILE__), "confs/agent.yaml"))
-server = YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml"))
 
-def provision_instance(config, yaml)
-  config.vm.box = "centos/8"
-  config.vm.box_url = BOX_URL
-  config.vm.define yaml.fetch('node-name'), primary: true do |node|
-    node.vm.hostname = yaml.fetch('node-name')
+cluster = {
+  "server" => {
+		:box => "centos/8",
+		:url => "http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box",
+		:ip => "192.168.42.110",
+		:cpus => 1,
+		:mem => 512,
+		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml")),
+		:k3s_arg => "server" },
+  "agent" => {
+		:box => "centos/8",
+		:url => "http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box",
+		:ip => "192.168.42.111",
+		:cpus => 1,
+		:mem => 512,
+		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/agent.yaml")),
+		:k3s_arg => "agent" },
+}
+
+def provision_instance(config, host, info)
+  config.vm.box = info[:box]
+  config.vm.box_url = info[:url]
+  config.vm.define info[:yaml].fetch('node-name'), primary: true do |node|
+    node.vm.hostname = info[:yaml].fetch('node-name')
     config.vm.provider "virtualbox" do |vb|
-      vb.memory = "512"
-      vb.cpus = "1"
+      vb.memory = info[:mem]
+      vb.cpus = info[:cpu]
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
-    node.vm.network "private_network", ip: yaml.fetch('node-ip')
-    if yaml.has_key?('server')
-      node.vm.provision "shell", path: "./scripts/k3s.sh", args: ['agent'], run: "once"
-    else
-      node.vm.provision "shell", path: "./scripts/k3s.sh", args: ['server'], run: "once"
-    end
+    node.vm.network "private_network", ip: info[:ip]
+    node.vm.provision "shell", path: "./scripts/k3s.sh", args: [info[:k3s_arg]], run: "once"
     node.vm.synced_folder ".", "/vagrant", type: "nfs"
   end
 end
 
-# Loop over 'cluster' variable
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vbguest.auto_update = false
-  provision_instance(config, server)
-  provision_instance(config, agent)
+	cluster.each_with_index do |(host, info), index|
+  		provision_instance(config, host, info)
+	end
 end
