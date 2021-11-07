@@ -22,6 +22,7 @@ def provision_instance(config, yaml) #node_name, ipv4, type)
     end
     node.vm.network "private_network", ip: yaml.fetch('bind-address')
     node.vm.provision "shell", path: "./scripts/k3s.sh", args: [yaml.fetch('exec'), yaml.fetch('bind-address')]
+    node.vm.provision "shell", path: "./scripts/aliases.sh"
     node.vm.synced_folder ".", "/vagrant", type: "nfs"
   end
 end
