@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-cd /vagrant/confs/$1
+cd /vagrant/confs/app/
 kustomize build > /tmp/$1.yaml
-envsubst < /tmp/$1.yaml | apply -f -
+envsubst < /tmp/$1.yaml | kubectl apply -f -

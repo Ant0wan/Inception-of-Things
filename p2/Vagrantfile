@@ -50,6 +50,7 @@ def provision_instance(config, host, info, apps)
     end
     node.vm.network "private_network", ip: info[:ip]
     node.vm.provision "shell", path: "./scripts/k3s.sh", run: "once"
+    node.vm.provision "shell", path: "./scripts/kustomize.sh", run: "once"
     if host == "server"
       apps.each do |(app, vars)|
         node.vm.provision "shell", path: "./scripts/applications.sh", run: "once",
