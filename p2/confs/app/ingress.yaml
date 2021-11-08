@@ -1,24 +1,24 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: tetris
+  name: ${name}
   annotations:
     kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+      #cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      more_set_input_headers "App1 Tetris";
+      more_set_input_headers "app ${name}";
 spec:
-  tls:
-  - hosts:
-    - app1.com
-    secretName: tetris-tls
+  #  tls:
+  #  - hosts:
+  #    - ${name}${domain}
+  #    secretName: ${name}-tls
   rules:
-  - host: app1.com
+  - host: ${name}${domain}
     http:
       paths:
       - path: /
         backend:
-          serviceName: tetris
+          serviceName: ${name}
           servicePort: 80
