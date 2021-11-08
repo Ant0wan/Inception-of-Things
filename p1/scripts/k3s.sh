@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 export PATH=$PATH:/usr/local/bin/
+systemctl disable firewalld --now
+systemctl daemon-reload
 mkdir -p /etc/rancher/k3s/
 cp /vagrant/confs/$1.yaml /etc/rancher/k3s/config.yaml
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=$1 sh -
