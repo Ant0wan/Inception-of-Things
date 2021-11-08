@@ -16,7 +16,28 @@ cluster = {
 		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/config.yaml")) },
 }
 
-def provision_instance(config, host, info)
+apps = {
+  "app-one" => {
+		:namespace => "default",
+		:image => "uzyexe/tetris",
+		:minreplicas => 1,
+		:domain => ".com",
+		:port => "80" },
+  "app-two" => {
+		:namespace => "default",
+		:image => "tuxes3/bomberman",
+		:minreplicas => 1,
+		:domain => ".com",
+		:port => "80" },
+  "app-three" => {
+		:namespace => "default",
+		:image => "kasmweb/doom",
+		:minreplicas => 1,
+		:domain => ".com",
+		:port => "80" },
+}
+
+def provision_instance(config, host, info, apps)
   config.vm.box = info[:box]
   config.vm.box_url = info[:url]
   config.vm.define info[:yaml].fetch('node-name'), primary: true do |node|
@@ -29,14 +50,26 @@ def provision_instance(config, host, info)
     end
     node.vm.network "private_network", ip: info[:ip]
     node.vm.provision "shell", path: "./scripts/k3s.sh", run: "once"
-    node.vm.provision "shell", inline: "kubectl apply -f /vagrant/confs/app1/*.yaml"
-    node.vm.synced_folder ".", "/vagrant", type: "nfs"
+    if host == "server"
+      apps.each do |(app, vars)|
+        node.vm.provision "shell", path: "./scripts/applications.sh", run: "once",
+          args: [app],
+          env: {
+            "name" => app,
+            "namespace" => vars[:namespace],
+            "image" => vars[:image],
+            "minreplica" => vars[:minreplica],
+            "domain" => vars[:domain],
+            "port" => vars[:port] }
+      end
+    end
+    #node.vm.synced_folder ".", "/vagrant", type: "nfs"
   end
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vbguest.auto_update = false
-	cluster.each_with_index do |(host, info)|
-  		provision_instance(config, host, info)
-	end
+  cluster.each_with_index do |(host, info)|
+    provision_instance(config, host, info, apps)
+  end
 end

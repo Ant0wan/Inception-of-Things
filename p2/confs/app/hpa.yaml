@@ -2,13 +2,13 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: tetris
+  name: ${name}
 spec:
   scaleTargetRef:
     kind: Deployment
-    name: tetris
+    name: ${name}
     apiVersion: apps/v1
-  minReplicas: 3
+  minReplicas: ${minreplica}
   maxReplicas: 6
   metrics:
   - type: Resource
