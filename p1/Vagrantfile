@@ -46,6 +46,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       provision_instance(config, host, info)
     end
   config.trigger.before :destroy do |trigger|
-    trigger.run = {inline: "rm -f ./k3s.sh ./node-token"}
+    trigger.run = {inline: "rm -f ./k3s.yaml ./node-token"}
   end
 end
