@@ -10,7 +10,6 @@ cluster = {
   "server" => {
 		:box => "centos/8",
 		:url => "http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box",
-		:ip => "192.168.42.110",
 		:cpus => 1,
 		:mem => 512,
 		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml")),
@@ -18,7 +17,6 @@ cluster = {
   "agent" => {
 		:box => "centos/8",
 		:url => "http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box",
-		:ip => "192.168.42.111",
 		:cpus => 1,
 		:mem => 512,
 		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/agent.yaml")),
@@ -36,7 +34,7 @@ def provision_instance(config, host, info)
       vb.customize ["modifyvm", :id, "--natdnsproxy2", "on"]
       vb.customize ["modifyvm", :id, "--natdnshostresolver2", "on"]
     end
-    node.vm.network "private_network", ip: info[:ip]
+    node.vm.network "private_network", ip: info[:yaml].fetch('node-ip')
     node.vm.provision "shell", path: "./scripts/k3s.sh", args: [info[:k3s_arg]], run: "once"
     node.vm.synced_folder ".", "/vagrant", type: "nfs"
   end
