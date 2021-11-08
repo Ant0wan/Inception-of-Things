@@ -31,7 +31,7 @@ apps = {
 		:port => "80" },
   "app-three" => {
 		:namespace => "default",
-		:image => "kasmweb/doom",
+		:image => "k8s.gcr.io/echoserver:1.4",
 		:minreplicas => 1,
 		:domain => ".com",
 		:port => "80" },
@@ -39,7 +39,7 @@ apps = {
 
 def provision_instance(config, host, info, apps)
   config.vm.box = info[:box]
-  #config.vm.box_url = info[:url]
+  config.vm.box_url = info[:url]
   config.vm.define info[:yaml].fetch('node-name'), primary: true do |node|
     node.vm.hostname = info[:yaml].fetch('node-name')
     config.vm.provider "virtualbox" do |vb|
