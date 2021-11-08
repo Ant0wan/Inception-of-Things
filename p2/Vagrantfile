@@ -29,6 +29,7 @@ def provision_instance(config, host, info)
     end
     node.vm.network "private_network", ip: info[:ip]
     node.vm.provision "shell", path: "./scripts/k3s.sh", run: "once"
+    node.vm.provision "shell", inline: "kubectl apply -f /vagrant/confs/app1/*.yaml"
     node.vm.synced_folder ".", "/vagrant", type: "nfs"
   end
 end
