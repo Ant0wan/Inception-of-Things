@@ -1,4 +1,4 @@
-#!/usr/bin/emv bash
+#!/usr/bin/env bash
 systemctl start firewalld
 systemctl enable firewalld
 
