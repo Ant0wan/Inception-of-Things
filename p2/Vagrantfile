@@ -59,7 +59,7 @@ def provision_instance(config, host, info, apps)
             "name" => app,
             "namespace" => vars[:namespace],
             "image" => vars[:image],
-            "minreplica" => vars[:minreplica],
+            "minreplica" => vars[:minreplicas],
             "domain" => vars[:domain],
             "port" => vars[:port] }
       end
