@@ -31,8 +31,8 @@ def provision_instance(config, host, info)
     config.vm.provider "virtualbox" do |vb|
       vb.memory = info[:mem]
       vb.cpus = info[:cpus]
-      vb.customize ["modifyvm", :id, "--natdnsproxy2", "on"]
-      vb.customize ["modifyvm", :id, "--natdnshostresolver2", "on"]
+      vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+      #vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
     node.vm.network "private_network", ip: info[:yaml].fetch('node-ip')
     node.vm.provision "shell", path: "./scripts/k3s.sh", args: [info[:k3s_arg]], run: "once"

@@ -22,3 +22,5 @@ vagrant reload
 vagrant up --provider=libvirt
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 no need for natdnsproxy1 cause libvirt already use /etc/hosts of the host
+
+`mdp` for reading md within shell
