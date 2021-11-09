@@ -36,6 +36,7 @@ def provision_instance(config, host, info)
     end
     node.vm.network "private_network", ip: info[:yaml].fetch('node-ip')
     node.vm.provision "shell", path: "./scripts/k3s.sh", args: [info[:k3s_arg]], run: "once"
+    node.vm.provision "shell", path: "./scripts/firewall.sh", run: "once"
     node.vm.synced_folder ".", "/vagrant", type: "nfs"
   end
 end
