@@ -18,21 +18,24 @@ cluster = {
 apps = {
   "app-one" => {
 		:namespace => "default",
-		:image => "uzyexe/tetris",
+		:image => "paulbouwer/hello-kubernetes:1.7",
 		:minreplicas => 1,
-		:domain => ".com",
+		:hostname => "app1.com",
+		:containerport => "8080",
 		:port => "80" },
   "app-two" => {
 		:namespace => "default",
-		:image => "tuxes3/bomberman",
+		:image => "paulbouwer/hello-kubernetes:1.7",
 		:minreplicas => 3,
-		:domain => ".com",
+		:hostname => "app2.com",
+		:containerport => "8080",
 		:port => "80" },
   "app-three" => {
 		:namespace => "default",
-		:image => "k8s.gcr.io/echoserver:1.4",
+		:image => "paulbouwer/hello-kubernetes:1.7",
 		:minreplicas => 1,
-		:domain => ".com",
+		:hostname => "app3.com",
+		:containerport => "8080",
 		:port => "80" },
 }
 
@@ -53,14 +56,15 @@ def provision_instance(config, host, info, apps)
     node.vm.provision "shell", path: "./scripts/kustomize.sh", run: "once"
     if info[:yaml].key?('bind-address')
       apps.each do |(app, vars)|
-        node.vm.provision "shell", path: "./scripts/applications.sh", run: "once",
+        node.vm.provision "shell", path: "./scripts/apps.sh", run: "once",
           args: [app],
           env: {
             "name" => app,
             "namespace" => vars[:namespace],
             "image" => vars[:image],
             "minreplica" => vars[:minreplicas],
-            "domain" => vars[:domain],
+            "hostname" => vars[:hostname],
+            "containerport" => vars[:containerport],
             "port" => vars[:port] }
       end
     end
