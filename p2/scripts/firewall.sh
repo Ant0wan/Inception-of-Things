@@ -10,4 +10,5 @@ if [ -e /var/lib/rancher/k3s/server/node-token ]; then
 		firewall-cmd --permanent --add-port=$p
 	done
 fi
+firewall-cmd --permanent --zone=trusted --change-interface=cni0
 firewall-cmd --reload
