@@ -2,17 +2,29 @@
 set -e
 egrep -ac "vmx|svm" /proc/cpuinfo &>/dev/null
 # Install VirtualBox
-sudo dnf -y install wget
-wget http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
-sudo mv virtualbox.repo /etc/yum.repos.d/virtualbox.repo
-sudo dnf install -y gcc binutils make glibc-devel patch libgomp glibc-headers  kernel-headers kernel-devel-`uname -r` dkms
-sudo dnf install -y VirtualBox-6.1
-sudo usermod -a -G vboxusers ${USER}
-sudo /usr/lib/virtualbox/vboxdrv.sh setup
-cd
-wget https://download.virtualbox.org/virtualbox/6.1.22/Oracle_VM_VirtualBox_Extension_Pack-6.1.22.vbox-extpack
-# Install Vagrant
-sudo sudo dnf -y install vagrant
+sudo apt install -y \
+virtualbox-dkms \
+virtualbox-guest-additions-iso \
+virtualbox-guest-utils \
+virtualbox-qt \
+virtualbox
+# Install Vagrant and related plugins
+sudo apt install -y \
+vagrant
+vagrant plugin install vagrant-vbguest
+
+
+#sudo dnf -y install wget
+#wget http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+#sudo mv virtualbox.repo /etc/yum.repos.d/virtualbox.repo
+#sudo dnf install -y gcc binutils make glibc-devel patch libgomp glibc-headers  kernel-headers kernel-devel-`uname -r` dkms
+#sudo dnf install -y VirtualBox-6.1
+#sudo usermod -a -G vboxusers ${USER}
+#sudo /usr/lib/virtualbox/vboxdrv.sh setup
+#cd
+#wget https://download.virtualbox.org/virtualbox/6.1.22/Oracle_VM_VirtualBox_Extension_Pack-6.1.22.vbox-extpack
+## Install Vagrant
+#sudo sudo dnf -y install vagrant
 
 # https://developer.fedoraproject.org/tools/vagrant/vagrant-virtualbox.html
 
@@ -43,4 +55,4 @@ sudo sudo dnf -y install vagrant
 #newgrp libvirt
 
 #vagrant plugin install vagrant-vbguest
-vagrant plugin install vagrant-vbguest --plugin-version 0.21
+#vagrant plugin install vagrant-vbguest --plugin-version 0.21
