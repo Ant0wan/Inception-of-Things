@@ -6,6 +6,3 @@ host_lb_port = 8080
 server_count = 1
 agent_count = 1
 k3s_version = "v1.19.8-k3s1"
-
-kubeconfig = "~/.kube/config"
-namespaces = ["argocd", "dev"]
