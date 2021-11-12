@@ -38,3 +38,20 @@ variable "agent_count" {
   default = 1
   type    = number
 }
+
+variable "kubeconfig" {
+  default = "~/.kube/config"
+  type = string
+}
+
+variable "kubecontext" {
+  default = "p3"
+  type = string
+}
+
+variable "namespaces" {
+  default = ["argocd", "dev"]
+  type = list(string)
+}
+
+

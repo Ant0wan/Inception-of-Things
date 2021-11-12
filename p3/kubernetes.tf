@@ -4,5 +4,8 @@ provider "kubernetes" {
 }
 
 resource "kubernetes_namespace" "namespaces" {
-  for_each = var.namspaces
+  for_each = var.namespaces
+  metadata {
+    name = each.key
+  }
 }

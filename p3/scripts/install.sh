@@ -39,3 +39,5 @@ _package_manager_detect
 _docker_install
 _k3d_install
 _terraform_install
+cd ..
+terraform init
