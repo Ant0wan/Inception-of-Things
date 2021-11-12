@@ -1,0 +1,8 @@
+node-name: 'abarthelS'
+bind-address: '192.168.42.110'
+advertise-address: '192.168.42.110'
+node-ip: '192.168.42.110'
+flannel-iface: 'eth1'
+write-kubeconfig-mode: '0644'
+node-label:
+  - 'inception-of-things=p1'
