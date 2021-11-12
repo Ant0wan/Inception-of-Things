@@ -39,12 +39,7 @@ variable "agent_count" {
   type    = number
 }
 
-variable "kubeconfig" {
-  default = "~/.kube/config"
-  type    = string
-}
-
-variable "namespaces" {
+variable "k8s_resources" {
   default = ["argocd", "dev"]
   type    = list(string)
 }
