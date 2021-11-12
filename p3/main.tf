@@ -39,10 +39,3 @@ data "docker_network" "k3d" {
   ]
   name = each.key
 }
-
-resource "null_resource" "kustomize" {
-  for_each = toset(var.k8s_resources)
-  depends_on = [
-    null_resource.cluster
-  ]
-}

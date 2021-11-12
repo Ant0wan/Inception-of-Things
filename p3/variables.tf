@@ -39,7 +39,7 @@ variable "agent_count" {
   type    = number
 }
 
-variable "k8s_resources" {
-  default = ["argocd", "dev"]
+variable "k8s_namespaces" {
+  default = ["default"]
   type    = list(string)
 }
