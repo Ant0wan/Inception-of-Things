@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
-set -e
-VERSION='6.1.28'
-TMP='/tmp'
+set -ex
+export VERSION='6.1.28'
+export TMP='/tmp'
 _package_manager_detect() {
-	command -v apt &>/dev/null && pk="apt" && return
-	command -v yum &>/dev/null && pk="yum" && return
+	command -v apt &>/dev/null && export pk="apt" && return
+	command -v yum &>/dev/null && export pk="yum" && return
 	_error "No supported package manager installed on system"
 	_error "(supported: apt or yum)"
 	exit 1
 }
 _package_manager_detect
+source virtualbox.sh
 #	command -v apt &>/dev/null && pk="apt" && PKG="virtualbox-6.1_${VERSION}-147628~Ubuntu~eoan_amd64.deb" && return
 #	command -v yum &>/dev/null && pk="yum" && PKG="VirtualBox-6.1-${VERSION}_147628_fedora33-1.x86_64.rpm" && return
 #echo ${pk} $PKG
