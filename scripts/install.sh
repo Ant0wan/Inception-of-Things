@@ -10,7 +10,8 @@ _package_manager_detect() {
 	exit 1
 }
 _package_manager_detect
-source virtualbox.sh
+#source virtualbox.sh
+source k3d.sh
 #	command -v apt &>/dev/null && pk="apt" && PKG="virtualbox-6.1_${VERSION}-147628~Ubuntu~eoan_amd64.deb" && return
 #	command -v yum &>/dev/null && pk="yum" && PKG="VirtualBox-6.1-${VERSION}_147628_fedora33-1.x86_64.rpm" && return
 #echo ${pk} $PKG
