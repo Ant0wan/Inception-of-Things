@@ -2,25 +2,47 @@
 
 ## Content
 
-• Part 1: K3s on Vagrant
-• Part 2: Three simple apps on K3s
-• Part 3: K3d with Argo CD
+### Part 1: K3s on Vagrant
+
+Install VirtualBox and Vagrant using the following scripts:
+
+```=shell
+#!/usr/bin/env bash
+set -e
+if command -v vagrant --version && command -v VBoxManage --version; then
+	exit 0
+fi
+egrep -ac "vmx|svm" /proc/cpuinfo &>/dev/null
+if [ ${pk} == "apt" ]; then
+	sudo apt install -y \
+		virtualbox-dkms \
+		virtualbox-guest-additions-iso \
+		virtualbox-guest-utils \
+		virtualbox-qt \
+		virtualbox
+fi
+sudo ${pk} install -y vagrant
+vagrant plugin install vagrant-vbguest
+```
 
 
-## LibVirt
-Vagrant LibVirt doc: `https://github.com/vagrant-libvirt/vagrant-libvirt`
+```=shell
+#!/usr/bin/env bash
+set -ex
+_package_manager_detect() {
+	command -v apt &>/dev/null && export pk="apt" && return
+	command -v yum &>/dev/null && export pk="yum" && return
+	_error "No supported package manager installed on system"
+	_error "(supported: apt or yum)"
+	exit 1
+}
+_package_manager_detect
+source virtualbox.sh
+```
+
+### Part 2: Three simple apps on K3s
 
 
-
-vagrant init centos/8
-vagrant up
-vagrant ssh
-vagrant box list
-vagrant box remove <tag>
-vagrant destroy
-vagrant reload
-vagrant up --provider=libvirt
-export VAGRANT_DEFAULT_PROVIDER=libvirt
-no need for natdnsproxy1 cause libvirt already use /etc/hosts of the host
+### Part 3: K3d with Argo CD
 
 `mdp` for reading md within shell
