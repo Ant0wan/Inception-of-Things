@@ -35,9 +35,16 @@ _terraform_install() {
 	sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 	sudo apt install terraform
 }
+_kubectl_install() {
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+	chmod +x kubectl
+	sudo install ./kubectl /usr/bin/
+	rm kubectl
+}
 _package_manager_detect
 _docker_install
 _k3d_install
 _terraform_install
+_kubectl_install
 cd ..
 terraform init
