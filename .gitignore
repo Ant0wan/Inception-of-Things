@@ -1,4 +1,7 @@
 p[0-9]/.vagrant/
 p[0-9]/k3s.yaml
 p[0-9]/node-token
+p[0-9]/terraform.tfstate
+p[0-9]/*.hcl
+p[0-9]/.terraform
 *.swp
