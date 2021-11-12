@@ -9,3 +9,4 @@ k3s_version = "v1.19.8-k3s1"
 
 kubeconfig = "~/.kube/config"
 kubecontext = "p3"
+namespaces = ["argocd", "dev"]

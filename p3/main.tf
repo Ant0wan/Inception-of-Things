@@ -17,7 +17,7 @@ resource "null_resource" "cluster" {
     server_count  = var.server_count
     ip            = var.cluster_ip
     port          = var.cluster_port
-    k3s_version   = var.k3d_version
+    k3s_version   = var.k3s_version
   }
   provisioner "local-exec" {
     command = "k3d cluster create ${each.key} --agents ${var.agent_count} --servers ${var.server_count} --api-port ${var.cluster_ip}:${var.cluster_port} --port ${local.host_lb_port}:${var.cluster_lb_port}@loadbalancer --image rancher/k3s:${var.k3s_version}"
