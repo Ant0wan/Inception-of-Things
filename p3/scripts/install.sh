@@ -12,6 +12,7 @@ _docker_install() {
 	sudo ${pk} remove docker docker-engine docker.io containerd runc
 	sudo ${pk} update
 	sudo ${pk} install -y ca-certificates curl gnupg lsb-release
+	# NOT FEDORA COMPLIANT
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 	sudo ${pk} update
@@ -28,6 +29,13 @@ _k3d_install() {
 		curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
 	fi
 }
+_terraform_install() {
+	# NOT FEDORA COMPLIANT
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+	sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+	sudo apt install terraform
+}
 _package_manager_detect
 _docker_install
 _k3d_install
+_terraform_install
