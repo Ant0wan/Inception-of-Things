@@ -1,1 +1,2 @@
-k8s_namespaces      = ["argocd", "dev"]
+namespaces = ["argocd", "dev"]
+kube_config    = "~/.kube/config"

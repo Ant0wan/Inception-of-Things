@@ -2,8 +2,8 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-resource "kubernetes_namespace" "p3_namespaces" {
- for_each = toset(var.k8s_namespaces)
+resource "kubernetes_namespace" "namespaces" {
+ for_each = toset(var.namespaces)
  metadata {
    name = each.key
  }
@@ -17,7 +17,7 @@ resource "null_resource" "argocd_manifest" {
    command = "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
  }
  depends_on = [
-   kubernetes_namespace.p3_namespaces
+   kubernetes_namespace.namespaces
  ]
 }
 
