@@ -32,8 +32,3 @@ variable "agent_count" {
   default = 0
   type    = number
 }
-
-variable "k8s_namespaces" {
-  default = ["default"]
-  type    = list(string)
-}

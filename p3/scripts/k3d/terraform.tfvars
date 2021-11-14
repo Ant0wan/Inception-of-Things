@@ -5,4 +5,3 @@ k3d_cluster_lb_port = 80
 k3d_host_lb_port    = 8080
 server_count        = 1
 agent_count         = 2
-k8s_namespaces      = ["argocd", "dev"]

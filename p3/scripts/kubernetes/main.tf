@@ -1,4 +1,6 @@
-provider "kubernetes" {}
+provider "kubernetes" {
+  config_path = "~/.kube/config"
+}
 
 resource "kubernetes_namespace" "p3_namespaces" {
  for_each = toset(var.k8s_namespaces)
