@@ -1,24 +1,24 @@
-variable "k3d_cluster_name" {
+variable "cluster_name" {
   default = ["abarthel"]
   type    = list(string)
 }
 
-variable "k3d_cluster_port" {
+variable "cluster_port" {
   default = 6550
   type    = number
 }
 
-variable "k3d_cluster_ip" {
+variable "cluster_ip" {
   default = "0.0.0.0"
   type    = string
 }
 
-variable "k3d_host_lb_port" {
+variable "host_lb_port" {
   default = null
   type    = number
 }
 
-variable "k3d_cluster_lb_port" {
+variable "cluster_lb_port" {
   default = 80
   type    = number
 }
