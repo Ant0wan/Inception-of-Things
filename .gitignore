@@ -4,4 +4,6 @@ p[0-9]/node-token
 p[0-9]/terraform.tfstate*
 p[0-9]/*.hcl
 p[0-9]/.terraform
+*.terraform.lock.hcl
+*.terraform/
 *.swp
