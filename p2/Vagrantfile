@@ -10,8 +10,8 @@ cluster = {
   "server" => {
 		:box => "centos/8",
 		:url => "http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box",
-		:cpus => 1,
-		:mem => 512,
+		:cpus => 2,
+		:mem => 1024,
 		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/config.yaml")) },
 }
 
