@@ -6,7 +6,7 @@ resource "null_resource" "kustomize" {
     command = "kustomize build ${var.kustomization_path} | kubectl apply -f -"
     interpreter = ["bash"]
     environment = {
-      FOO = "bar"
+      FOO = "bar" ??
       BAR = 1
       BAZ = "true"
     }
