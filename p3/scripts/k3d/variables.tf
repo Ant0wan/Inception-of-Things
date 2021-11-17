@@ -32,8 +32,3 @@ variable "agent_count" {
   default = 0
   type    = number
 }
-
-variable "kustomization_path" {
-  default = "./confs"
-  type    = string
-}
