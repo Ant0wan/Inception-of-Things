@@ -2829,6 +2829,10 @@ metadata:
     app.kubernetes.io/name: argocd-cmd-params-cm
     app.kubernetes.io/part-of: argocd
   name: argocd-cmd-params-cm
+data:
+  server:
+    insecure: true
+    rootpath: /
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -3334,7 +3338,7 @@ spec:
             weight: 5
       containers:
       - command:
-        - argocd-server --insecure
+        - argocd-server
         env:
         - name: ARGOCD_SERVER_INSECURE
           valueFrom:

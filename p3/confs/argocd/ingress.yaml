@@ -1,4 +1,5 @@
-apiVersion: extensions/v1beta1
+---
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: argocd-ingress
@@ -7,37 +8,18 @@ metadata:
     app: argocd
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: "traefik"
+    traefik.frontend.rule.type: PathPrefixStrip
 spec:
   rules:
-  - http:
+  - host: argocd.k3d
+    http:
       paths:
-      - path: /argocd
+      - pathType: Prefix
+        path: /
         backend:
-          serviceName: argocd-server
-          servicePort: 80
+          service:
+            name: argocd-server
+            port:
+              number: 80
 
-            #---
-            #apiVersion: networking.k8s.io/v1
-            #kind: Ingress
-            #metadata:
-            #  name: argocd-ingress
-            #  namespace: argocd
-            #  labels:
-            #    app: argocd
-            #  annotations:
-            #    ingress.kubernetes.io/ssl-redirect: "false"
-            #    kubernetes.io/ingress.class: "traefik"
-            #    traefik.frontend.rule.type: PathPrefixStrip
-            #spec:
-            #  rules:
-            #  - host: argocd.k3d
-            #    http:
-            #      paths:
-            #      - pathType: Prefix
-            #        path: /
-            #        backend:
-            #          service:
-            #            name: argocd-server
-            #            port:
-            #              number: 80
-            #
