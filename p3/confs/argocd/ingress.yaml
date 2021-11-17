@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: argocd-ingress
+  namespace: argocd
   labels:
     app: argocd
   annotations:
@@ -20,6 +21,7 @@ spec:
             #kind: Ingress
             #metadata:
             #  name: argocd-ingress
+            #  namespace: argocd
             #  labels:
             #    app: argocd
             #  annotations:
