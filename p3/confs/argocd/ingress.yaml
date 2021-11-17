@@ -14,3 +14,28 @@ spec:
         backend:
           serviceName: argocd-server
           servicePort: 80
+
+            #---
+            #apiVersion: networking.k8s.io/v1
+            #kind: Ingress
+            #metadata:
+            #  name: argocd-ingress
+            #  labels:
+            #    app: argocd
+            #  annotations:
+            #    ingress.kubernetes.io/ssl-redirect: "false"
+            #    kubernetes.io/ingress.class: "traefik"
+            #    traefik.frontend.rule.type: PathPrefixStrip
+            #spec:
+            #  rules:
+            #  - host: argocd.k3d
+            #    http:
+            #      paths:
+            #      - pathType: Prefix
+            #        path: /argocd
+            #        backend:
+            #          service:
+            #            name: argocd-server
+            #            port:
+            #              number: 80
+            #
