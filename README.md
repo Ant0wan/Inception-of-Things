@@ -101,6 +101,9 @@ _terraform_install
 _kubectl_install
 ```
 
+![archi](https://argo-cd.readthedocs.io/en/stable/assets/argocd_architecture.png)
+
+
 ---
 
 `mdp` for reading md within shell
