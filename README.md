@@ -100,9 +100,7 @@ _k3d_install
 _terraform_install
 _kubectl_install
 ```
-
-![archi](https://argo-cd.readthedocs.io/en/stable/assets/argocd_architecture.png)
-
+![archi](https://static.wixstatic.com/media/e4ff2a_7edd00616f9c4f05a2f8df63f13ecf51~mv2.png/v1/fill/w_740,h_421,al_c,q_95/e4ff2a_7edd00616f9c4f05a2f8df63f13ecf51~mv2.webp)
 
 ---
 
