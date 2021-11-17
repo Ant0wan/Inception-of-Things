@@ -2881,6 +2881,8 @@ metadata:
     app.kubernetes.io/name: argocd-secret
     app.kubernetes.io/part-of: argocd
   name: argocd-secret
+stringData:
+  admin.password: "$2a$12$ruDmhYZb.qDpBTeV9fMav.jBsGQer3TTOYZuGmBQAYZmycdnQhzOW" #passord: camesaoul
 type: Opaque
 ---
 apiVersion: v1
