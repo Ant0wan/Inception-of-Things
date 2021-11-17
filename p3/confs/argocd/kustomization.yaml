@@ -4,3 +4,4 @@ namespace: argocd
 resources:
 - manifest.yaml
 - namespace.yaml
+- traefik.yaml
