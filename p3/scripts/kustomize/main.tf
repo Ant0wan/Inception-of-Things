@@ -1,14 +1,29 @@
 provider "kustomization" {}
 
-data "kustomization" "test" {
+data "kustomization" "argocd" {
   provider = kustomization
   path = "../../confs/argocd/"
 }
 
-resource "kustomization_resource" "test" {
+resource "kustomization_resource" "argocd" {
   provider = kustomization
-  for_each = data.kustomization.test.ids
-  manifest = data.kustomization.test.manifests[each.value]
+  for_each = data.kustomization.argocd.ids
+  manifest = data.kustomization.argocd.manifests[each.value]
+}
+
+resource "null_resource" "dev_envsubst" {
+  depends_on = [
+    kustomization_resource.argocd
+  ]
+  provisioner "local-exec" {
+    command = "envsubst XXXX.yaml"
+    interpreter = ["bash"]
+    environment = {
+      namespace = "bar"
+      BAR = 1
+      BAZ = "true"
+    }
+  }
 }
 
 
