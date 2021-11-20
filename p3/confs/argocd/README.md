@@ -1,3 +1,13 @@
+### Get install manifest 
+
+```shell
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+
+### ConfigMap Example
+
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -103,3 +113,4 @@ data:
   reposerver.repo.cache.expiration: "24h0m0s"
   # Cache expiration default (default 24h0m0s)
   reposerver.default.cache.expiration: "24h0m0s"
+```
