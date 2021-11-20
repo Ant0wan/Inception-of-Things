@@ -7,3 +7,7 @@ resources:
 - ingress.yaml
 - namespace.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+patchesStrategicMerge:
+- insecure.yaml
+- password.yaml

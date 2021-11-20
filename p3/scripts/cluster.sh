@@ -3,6 +3,9 @@ cd k3d
 terraform init
 terraform apply
 
-#cd ../kustomize
-#terraform init
-#terraform plan
+printf "Waiting for cluster to be up and running...\n"
+sleep 30;
+
+cd ../kustomize
+terraform init
+terraform plan

@@ -27,33 +27,33 @@ data "kustomization_overlay" "argocd" {
     load_restrictor = "none"
   }
 
-  patches {
-    patch = <<-EOF
-      - op: add
-        path: data/server.insecure
-        value: true
-    EOF
-    target = {
-      version = "v1"
-      kind = "ConfigMap"
-      name = "argocd-cmd-params-cm"
-      namespace = local.namespace
-    }
-  }
-  patches {
-## password: faitchierlapedago
-    patch = <<-EOF
-      - op: replace
-        path: stringData/admin.password
-        value: "$2a$12$XC7M9hTkoNzfS.Pbwl72MOIimmSZ1qnWrxTWi1wOgpJzGSudi0dpS"
-    EOF
-    target = {
-      version = "v1"
-      kind = "Secret"
-      name = "argocd-secret"
-      namespace = local.namespace
-    }
-  }
+#  patches {
+#    patch = <<-EOF
+#      - op: add
+#        path: data/server.insecure
+#        value: true
+#    EOF
+#    target = {
+#      version = "v1"
+#      kind = "ConfigMap"
+#      name = "argocd-cmd-params-cm"
+#      namespace = local.namespace
+#    }
+#  }
+#  patches {
+### password: faitchierlapedago
+#    patch = <<-EOF
+#      - op: replace
+#        path: stringData/admin.password
+#        value: "$2a$12$XC7M9hTkoNzfS.Pbwl72MOIimmSZ1qnWrxTWi1wOgpJzGSudi0dpS"
+#    EOF
+#    target = {
+#      version = "v1"
+#      kind = "Secret"
+#      name = "argocd-secret"
+#      namespace = local.namespace
+#    }
+#  }
 }
 
 resource "kustomization_resource" "argocd" {
