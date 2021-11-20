@@ -114,3 +114,36 @@ data:
   # Cache expiration default (default 24h0m0s)
   reposerver.default.cache.expiration: "24h0m0s"
 ```
+
+### Patch
+
+Configmap
+
+```yaml
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-cmd-params-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-cmd-params-cm
+data:
+  server.insecure: "true"
+```
+
+Secret
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-secret
+    app.kubernetes.io/part-of: argocd
+  name: argocd-secret
+stringData:
+  admin.password: "$2a$12$ruDmhYZb.qDpBTeV9fMav.jBsGQer3TTOYZuGmBQAYZmycdnQhzOW" #passord: camesaoul
+type: Opaque
+```
+
