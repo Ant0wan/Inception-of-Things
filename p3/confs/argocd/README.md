@@ -147,3 +147,7 @@ stringData:
 type: Opaque
 ```
 
+
+### Password
+
+Generate password using: https://bcrypt-generator.com/
