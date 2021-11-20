@@ -5,6 +5,8 @@ provider "kustomization" {
 locals {
   label_key = "app.kubernetes.io/part-of"
   label_value = "argocd"
+
+  namespace = "argocd"
 }
 
 
@@ -21,6 +23,20 @@ data "kustomization_overlay" "argocd" {
 
   kustomize_options = {
     load_restrictor = "none"
+  }
+
+  patches {
+    patch = <<-EOF
+      - op: add
+        path: data/server.insecure
+        value: true
+    EOF
+    target = {
+      version = "v1"
+      kind = "ConfigMap"
+      name = "argocd-cmd-params-cm"
+      namespace = local.namespace
+    }
   }
 }
 
