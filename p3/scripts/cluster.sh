@@ -8,4 +8,4 @@ sleep 30;
 
 cd ../kustomize
 terraform init
-terraform plan
+terraform apply
