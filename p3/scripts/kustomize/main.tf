@@ -6,6 +6,8 @@ locals {
   label_key = "app.kubernetes.io/part-of"
   label_value = "argocd"
 
+  time_ts = formatdate("YYYY-MM-DDThh:mm:ssZZZ", timestamp())
+
   namespace = "argocd"
 }
 
@@ -35,6 +37,20 @@ data "kustomization_overlay" "argocd" {
       version = "v1"
       kind = "ConfigMap"
       name = "argocd-cmd-params-cm"
+      namespace = local.namespace
+    }
+  }
+  patches {
+## password: faitchierlapedago
+    patch = <<-EOF
+      - op: replace
+        path: stringData/admin.password
+        value: "$2a$12$XC7M9hTkoNzfS.Pbwl72MOIimmSZ1qnWrxTWi1wOgpJzGSudi0dpS"
+    EOF
+    target = {
+      version = "v1"
+      kind = "Secret"
+      name = "argocd-secret"
       namespace = local.namespace
     }
   }
