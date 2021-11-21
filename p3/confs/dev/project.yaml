@@ -1,19 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: argocdrocks-project
+  name: camagru
   labels:
-    app: argocdrocks
+    app: camagru
 spec:
-  # Project description
-  description: Our ArgoCD Project to deploy our app locally
-  # Allow manifests to deploy only from Sokube git repositories 
+  description: "A web application for sharing pictures."
   sourceRepos:
-  - "https://github.com/sokube/*"
-  # Only permit to deploy applications in the same cluster
+  - "https://github.com/Ant0wan/Camagru"
   destinations:
   - namespace: dev
-    server: https://kubernetes.default.svc
-  # Enables namespace orphaned resource monitoring.
+    server: http://argocd.k3d
   orphanedResources:
     warn: false

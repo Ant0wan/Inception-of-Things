@@ -13,7 +13,7 @@ spec:
     directory:
       recurse: true
   destination:
-    server: https://kubernetes.default.svc
+    server: http://argocd.k3d/
     namespace: dev
   syncPolicy:
     automated:
