@@ -101,6 +101,10 @@ _terraform_install
 _kubectl_install
 ```
 
+Using Camagru:
+
+https://github.com/Ant0wan/Camagru.git
+
 ArgoCD:
 
 ![argocd](https://static.wixstatic.com/media/e4ff2a_7edd00616f9c4f05a2f8df63f13ecf51~mv2.png/v1/fill/w_740,h_421,al_c,q_95/e4ff2a_7edd00616f9c4f05a2f8df63f13ecf51~mv2.webp)
