@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <img src="logo.png" alt="Logo" width="80" height="80">
-  <h3 align="center">Inception Of Things</h3>
+  <h1 align="center">Inception Of Things</h3>
   <p align="center">
     Local Kubernetes with CD using Vagrant, Rancher K3s and K3d.
   </p>
