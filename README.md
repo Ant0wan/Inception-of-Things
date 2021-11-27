@@ -1,5 +1,7 @@
 # Inception of Things
 
+![IoT](/logo.png)
+
 ## Content
 
 ---
