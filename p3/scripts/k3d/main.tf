@@ -13,10 +13,10 @@ locals {
 resource "null_resource" "cluster" {
   for_each = toset(var.cluster_name)
   triggers = {
-    agent_count   = var.agent_count
-    server_count  = var.server_count
-    ip            = var.cluster_ip
-    port          = var.cluster_port
+    agent_count  = var.agent_count
+    server_count = var.server_count
+    ip           = var.cluster_ip
+    port         = var.cluster_port
   }
   provisioner "local-exec" {
     command = "k3d cluster create ${each.key} --agents ${var.agent_count} --servers ${var.server_count} --api-port ${var.cluster_ip}:${var.cluster_port} --port ${local.host_lb_port}:${var.cluster_lb_port}@loadbalancer"

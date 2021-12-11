@@ -1,21 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  name: camagru
   labels:
     app: camagru
-  name: camagru
+  namespace: argocd
 spec:
-  project: camagru
+  project: default
   source:
-    repoURL: https://github.com/Ant0wan/Camagru.git
-    targetRevision: master
-    path: k8s
-    directory:
-      recurse: true
+    repoURL: https://github.com/Ant0wan/Camagru-deployment-abarthel.git
+    targetRevision: HEAD
+    path: dev
   destination:
-    server: http://argocd.k3d/
+    server: https://kubernetes.default.svc
     namespace: dev
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
-      prune: false
       selfHeal: true
+      prune: true
+# Still a web hook to configure here for git repository triggering if any changes instead of every 3min default
