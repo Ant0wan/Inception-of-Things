@@ -1,4 +1,4 @@
-variable "argocd_conf_path" {
-  default = "../../confs/argocd/"
-  type    = string
+variable "argoconfig" {
+  description = "Map of applications configuration deployed by argocd."
+  type        = map(any)
 }
