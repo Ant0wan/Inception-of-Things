@@ -1,18 +1,18 @@
-applications = [
-		argocd = [
+applications = {
+		argocd = {
 			      namesapce = "argocd"
-      				label = [
+      				label = {
 		        key       = "app.kubernetes.io/part-of",
 		        value     = "argocd",
 		        resources = "../../confs/argocd/"
-      ],
-    ],
-    dev = [
+      },
+    },
+    dev = {
       namesapce = "argocd"
-      label = [
+      label = {
         key       = "app.kubernetes.io/part-of",
         value     = "dev",
         resources = "../../confs/dev/"
-      ],
-    ],
-  ]
+      }
+    }
+  }
