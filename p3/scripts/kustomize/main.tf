@@ -5,8 +5,6 @@ provider "kustomization" {
 data "kustomization_overlay" "application" {
   namespace = var.application.namespace
 
-  common_labels = var.application.label
-
   resources = var.application.resources
 
   kustomize_options = {
