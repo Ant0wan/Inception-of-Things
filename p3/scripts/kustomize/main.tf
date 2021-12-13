@@ -2,22 +2,12 @@ provider "kustomization" {
   kubeconfig_path = "~/.kube/config"
 }
 
-locals {
-  namespace   = "argocd"
-  label_key   = "app.kubernetes.io/part-of"
-  label_value = ["argocd", "dev"]
-}
+data "kustomization_overlay" "application" {
+  namespace = var.application.namespace
 
-data "kustomization_overlay" "app" {
-  namespace = var.app.namespace
+  common_labels = var.application.label
 
-  common_labels = {
-    (var.label_key) = local.label_value[0]
-  }
-
-  resources = [
-    "../../confs/"
-  ]
+  resources = var.application.resources
 
   kustomize_options = {
     load_restrictor = "none"
@@ -25,7 +15,7 @@ data "kustomization_overlay" "app" {
 }
 
 resource "kustomization_resource" "app" {
-  for_each = data.kustomization_overlay.argocd.ids
+  for_each = data.kustomization_overlay.application.ids
 
-  manifest = data.kustomization_overlay.argocd.manifests[each.value]
+  manifest = data.kustomization_overlay.application.manifests[each.value]
 }

@@ -1,8 +1,7 @@
-app = {
-  name      = argocd,
+application = {
   namespace = "argocd",
-  resources = "../../confs/",
+  resources = ["../../confs/"]
   label = {
-    ["app.kubernetes.io/part-of", "argocd"]
+    "app.kubernetes.io/part-of" = "argocd"
   }
 }
