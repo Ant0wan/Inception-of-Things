@@ -11,6 +11,8 @@ cluster = {
 applications = {
   argocd = {
     namespace = "argocd"
-    resources = "../confs/"
+    resources = [
+      "../confs/"
+    ]
   }
 }

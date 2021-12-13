@@ -4,7 +4,8 @@ module "k3d" {
 }
 
 module "kustomize" {
-	source  = "./kustomize"
-	for_each = var.applications
-	application = each.key
+  source = "./kustomize"
+  #	for_each = var.applications
+  #	application = each.key
+  application = var.applications.argocd
 }
