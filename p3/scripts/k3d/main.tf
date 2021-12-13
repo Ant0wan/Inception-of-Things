@@ -19,7 +19,7 @@ resource "null_resource" "cluster" {
     port         = var.cluster.port
   }
   provisioner "local-exec" {
-    command = "k3d cluster create ${each.key} --agents ${var.cluster.agent_count} --servers ${var.cluster.server_count} --api-port ${var.cluster.ip}:${var.cluster.port} --port ${local.cluster.host_lb_port}:${var.cluster.lb_port}@loadbalancer"
+    command = "k3d cluster create ${each.key} --agents ${var.cluster.agent_count} --servers ${var.cluster.server_count} --api-port ${var.cluster.ip}:${var.cluster.port} --port ${local.host_lb_port}:${var.cluster.lb_port}@loadbalancer"
   }
 }
 

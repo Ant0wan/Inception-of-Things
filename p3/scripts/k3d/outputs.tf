@@ -1,9 +1,9 @@
 output "clusters_created" {
-  value = var.cluster_name
+  value = var.cluster.name
 }
 
 output "cluster_ip" {
-  value = var.cluster_ip
+  value = var.cluster.ip
 }
 
 output "host_lb_port" {
@@ -11,5 +11,5 @@ output "host_lb_port" {
 }
 
 output "api_port" {
-  value = var.cluster_port
+  value = var.cluster.port
 }
