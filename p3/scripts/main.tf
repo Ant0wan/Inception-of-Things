@@ -1,5 +1,5 @@
 module "k3d" {
-  source = "./k3d"
+  source  = "./k3d"
   cluster = var.cluster
 }
 
