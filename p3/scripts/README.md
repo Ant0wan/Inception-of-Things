@@ -1,6 +1,9 @@
 https://registry.terraform.io/providers/kbst/kustomization/latest/docs
 
 
+Dependencies between modules: https://gcloud.devoteam.com/blog/creating-dependencies-between-your-terraform-modules/
+
+
 TODO:
 patch configmap
 ```
