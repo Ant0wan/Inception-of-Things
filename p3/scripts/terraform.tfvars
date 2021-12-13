@@ -1,18 +1,18 @@
 applications = {
-		argocd = {
-			      namesapce = "argocd"
-      				label = {
-		        key       = "app.kubernetes.io/part-of",
-		        value     = "argocd",
-		        resources = "../../confs/argocd/"
-      },
+  argocd = {
+    namespace = "argocd",
+    resources = "../../confs/argocd/",
+    label = {
+      key       = "app.kubernetes.io/part-of",
+      value     = "argocd"
     },
-    dev = {
-      namesapce = "argocd"
-      label = {
-        key       = "app.kubernetes.io/part-of",
-        value     = "dev",
-        resources = "../../confs/dev/"
-      }
+  },
+  dev = {
+    namespace = "argocd",
+    resources = "../../confs/dev/",
+    label = {
+      key       = "app.kubernetes.io/part-of",
+      value     = "dev"
     }
   }
+}

@@ -6,4 +6,3 @@ namespace: dev
 resources:
 - application.yaml
 - namespace.yaml
-  #- project.yaml

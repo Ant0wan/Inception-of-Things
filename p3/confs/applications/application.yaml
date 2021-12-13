@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -16,8 +17,7 @@ spec:
     namespace: dev
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace: true
     automated:
       selfHeal: true
       prune: true
-# Still a web hook to configure here for git repository triggering if any changes instead of every 3min default
