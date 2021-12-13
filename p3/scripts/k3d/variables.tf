@@ -1,34 +1,21 @@
-variable "cluster_name" {
-  default = ["abarthel"]
-  type    = list(string)
-}
-
-variable "cluster_port" {
-  default = 6550
-  type    = number
-}
-
-variable "cluster_ip" {
-  default = "0.0.0.0"
-  type    = string
-}
-
-variable "host_lb_port" {
-  default = null
-  type    = number
-}
-
-variable "cluster_lb_port" {
-  default = 80
-  type    = number
-}
-
-variable "server_count" {
-  default = 1
-  type    = number
-}
-
-variable "agent_count" {
-  default = 0
-  type    = number
+variable "cluster" {
+  description = "K3d cluster info map"
+  type = map(object({
+    name         = list(string)
+    port         = number
+    ip           = string
+    lb_port      = number
+    host_lb_port = number
+    server_count = number
+    agent_count  = number
+  }))
+  default = {
+    name         = ["abarthel"]
+    port         = 6550
+    ip           = "0.0.0.0"
+    lb_port      = 4
+    host_lb_port = 80
+    server_count = 1
+    agent_count  = 0
+  }
 }

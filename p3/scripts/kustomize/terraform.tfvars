@@ -4,16 +4,8 @@ applications = {
     label = {
       key       = "app.kubernetes.io/part-of",
       value     = "argocd",
-      resources = "../../confs/argocd/"
+      resources = "../../confs/"
     },
   },
-  dev = {
-    namesapce = "argocd"
-    label = {
-      key       = "app.kubernetes.io/part-of",
-      value     = "dev",
-      resources = "../../confs/dev/"
-    }
-  }
 }
 

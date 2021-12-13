@@ -29,25 +29,3 @@ resource "kustomization_resource" "argocd" {
 
   manifest = data.kustomization_overlay.argocd.manifests[each.value]
 }
-
-data "kustomization_overlay" "dev" {
-  namespace = local.label_value[1]
-
-  common_labels = {
-    (local.label_key) = local.label_value[1]
-  }
-
-  resources = [
-    "../../confs/${local.label_value[1]}/"
-  ]
-
-  kustomize_options = {
-    load_restrictor = "none"
-  }
-}
-
-resource "kustomization_resource" "dev" {
-  for_each = data.kustomization_overlay.dev.ids
-
-  manifest = data.kustomization_overlay.dev.manifests[each.value]
-}

@@ -1,5 +1,6 @@
 applications = {
   argocd = {
+    name = argocd,
     namespace = "argocd",
     resources = "../../confs/argocd/",
     label = {
@@ -7,7 +8,8 @@ applications = {
       value     = "argocd"
     },
   },
-  dev = {
+  app = {
+    name = camagru,
     namespace = "argocd",
     resources = "../../confs/dev/",
     label = {

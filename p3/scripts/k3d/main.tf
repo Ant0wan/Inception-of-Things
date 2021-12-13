@@ -7,24 +7,24 @@ resource "random_integer" "port" {
 }
 
 locals {
-  host_lb_port = (var.host_lb_port != "" ? var.host_lb_port : random_integer.port.result)
+  host_lb_port = (var.cluster.host_lb_port != "" ? var.cluster.host_lb_port : random_integer.port.result)
 }
 
 resource "null_resource" "cluster" {
-  for_each = toset(var.cluster_name)
+  for_each = toset(var.cluster.name)
   triggers = {
-    agent_count  = var.agent_count
-    server_count = var.server_count
-    ip           = var.cluster_ip
-    port         = var.cluster_port
+    agent_count  = var.cluster.agent_count
+    server_count = var.cluster.server_count
+    ip           = var.cluster.ip
+    port         = var.cluster.port
   }
   provisioner "local-exec" {
-    command = "k3d cluster create ${each.key} --agents ${var.agent_count} --servers ${var.server_count} --api-port ${var.cluster_ip}:${var.cluster_port} --port ${local.host_lb_port}:${var.cluster_lb_port}@loadbalancer"
+    command = "k3d cluster create ${each.key} --agents ${var.cluster.agent_count} --servers ${var.cluster.server_count} --api-port ${var.cluster.ip}:${var.cluster.port} --port ${local.cluster.host_lb_port}:${var.cluster.lb_port}@loadbalancer"
   }
 }
 
 resource "null_resource" "cluster_delete" {
-  for_each = toset(var.cluster_name)
+  for_each = toset(var.cluster.name)
   provisioner "local-exec" {
     command = "k3d cluster delete ${each.key}"
     when    = destroy
@@ -32,7 +32,7 @@ resource "null_resource" "cluster_delete" {
 }
 
 data "docker_network" "k3d" {
-  for_each = toset(var.cluster_name)
+  for_each = toset(var.cluster.name)
   depends_on = [
     null_resource.cluster
   ]
