@@ -8,15 +8,15 @@ locals {
   label_value = ["argocd", "dev"]
 }
 
-data "kustomization_overlay" "argocd" {
-  namespace = local.label_value[0]
+data "kustomization_overlay" "app" {
+  namespace = var.app.namespace
 
   common_labels = {
-    (local.label_key) = local.label_value[0]
+    (var.label_key) = local.label_value[0]
   }
 
   resources = [
-    "../../confs/${local.label_value[0]}/"
+    "../../confs/"
   ]
 
   kustomize_options = {
@@ -24,7 +24,7 @@ data "kustomization_overlay" "argocd" {
   }
 }
 
-resource "kustomization_resource" "argocd" {
+resource "kustomization_resource" "app" {
   for_each = data.kustomization_overlay.argocd.ids
 
   manifest = data.kustomization_overlay.argocd.manifests[each.value]

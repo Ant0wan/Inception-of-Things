@@ -7,3 +7,15 @@ cluster = {
   server_count = 1
   agent_count  = 2
 }
+
+applications = {
+  argocd = {
+    name = argocd,
+    namespace = "argocd",
+    resources = "../../confs/",
+    label = {
+      key       = "app.kubernetes.io/part-of",
+      value     = "argocd"
+    },
+  },
+}

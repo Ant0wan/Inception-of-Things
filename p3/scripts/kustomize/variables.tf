@@ -1,4 +1,12 @@
-variable "applications" {
-  description = "Map of applications configuration deployed by argocd."
-  type        = map(any)
+variable "application" {
+  description = "Application configuration."
+  type = object({
+    name = string
+    namespace = string
+    labels = object({
+      part_of = string
+      app     = string
+    })
+    resources = list(string)
+  })
 }
