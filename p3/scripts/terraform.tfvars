@@ -10,12 +10,7 @@ cluster = {
 
 applications = {
   argocd = {
-    name = argocd,
-    namespace = "argocd",
-    resources = "../../confs/",
-    label = {
-      key       = "app.kubernetes.io/part-of",
-      value     = "argocd"
-    },
-  },
+    namespace = "argocd"
+    resources = "../confs/"
+  }
 }
