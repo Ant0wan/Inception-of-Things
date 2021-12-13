@@ -1,5 +1,6 @@
 module "k3d" {
-  source = ""
+  source = "./k3d"
+  cluster = var.cluster
 }
 
 #module "kustomize" {

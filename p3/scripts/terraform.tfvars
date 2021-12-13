@@ -1,20 +1,9 @@
-applications = {
-  argocd = {
-    name = argocd,
-    namespace = "argocd",
-    resources = "../../confs/argocd/",
-    label = {
-      key       = "app.kubernetes.io/part-of",
-      value     = "argocd"
-    },
-  },
-  app = {
-    name = camagru,
-    namespace = "argocd",
-    resources = "../../confs/dev/",
-    label = {
-      key       = "app.kubernetes.io/part-of",
-      value     = "dev"
-    }
-  }
+cluster = {
+  name         = ["abarthel"]
+  port         = 6550
+  ip           = "127.0.0.1"
+  lb_port      = 80
+  host_lb_port = 8080
+  server_count = 1
+  agent_count  = 2
 }

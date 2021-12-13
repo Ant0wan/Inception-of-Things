@@ -1,6 +1,3 @@
-provider "docker" {}
-provider "random" {}
-
 resource "random_integer" "port" {
   min = 8000
   max = 8099
