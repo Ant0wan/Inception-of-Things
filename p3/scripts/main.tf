@@ -5,5 +5,5 @@ module "k3d" {
 
 module "kustomize" {
   source      = "./kustomize"
-  application = var.application
+  application = var.argocd
 }

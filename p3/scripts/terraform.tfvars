@@ -8,7 +8,7 @@ cluster = {
   agent_count  = 2
 }
 
-application = {
+argocd = {
   namespace = "argocd"
   resources = [
     "../confs/"
