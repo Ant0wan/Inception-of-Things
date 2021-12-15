@@ -8,3 +8,4 @@
 **.terraform.lock.hcl
 **.terraform/
 **.swp
+**.lock.info
