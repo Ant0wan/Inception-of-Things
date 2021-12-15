@@ -13,3 +13,7 @@ output "host_lb_port" {
 output "api_port" {
   value = var.cluster.port
 }
+
+output "kube_config" {
+  value = kubeconfig.content
+}

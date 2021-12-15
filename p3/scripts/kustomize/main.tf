@@ -1,5 +1,6 @@
 provider "kustomization" {
   kubeconfig_path = "~/.kube/config"
+  kubeconfig_raw = module.gke_example.kubeconfig
 }
 
 data "kustomization_overlay" "application" {

@@ -35,3 +35,7 @@ data "docker_network" "k3d" {
   ]
   name = "k3d-${each.key}"
 }
+
+data "local_file" "kubeconfig" {
+    filename = "~/.kube/config"
+}
