@@ -3,6 +3,8 @@ https://registry.terraform.io/providers/kbst/kustomization/latest/docs
 
 Dependencies between modules: https://gcloud.devoteam.com/blog/creating-dependencies-between-your-terraform-modules/
 
+Argocd basics: https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/
+
 
 TODO:
 patch configmap
