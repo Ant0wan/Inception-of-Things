@@ -6,6 +6,8 @@ metadata:
   labels:
     app: camagru
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -16,8 +18,14 @@ spec:
     server: https://kubernetes.default.svc
     namespace: dev
   syncPolicy:
-    syncOptions:
-      - CreateNamespace: true
     automated:
-      selfHeal: true
       prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
