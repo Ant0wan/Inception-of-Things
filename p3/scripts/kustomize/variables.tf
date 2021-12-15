@@ -8,5 +8,5 @@ variable "application" {
 
 variable "kubeconfig" {
   description = "Raw kubeconfig. creating dependency between modules."
-  type = string
+  type        = string
 }
