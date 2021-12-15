@@ -37,5 +37,8 @@ data "docker_network" "k3d" {
 }
 
 data "local_file" "kubeconfig" {
-    filename = "~/.kube/config"
+  filename = "~/.kube/config"
+  depends_on = [
+    null_resource.cluster
+  ]
 }

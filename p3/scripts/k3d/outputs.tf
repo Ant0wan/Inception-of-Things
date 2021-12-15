@@ -15,5 +15,5 @@ output "api_port" {
 }
 
 output "kube_config" {
-  value = kubeconfig.content
+  value = data.local_file.kubeconfig.content
 }
