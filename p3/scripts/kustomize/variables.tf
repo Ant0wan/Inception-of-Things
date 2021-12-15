@@ -5,3 +5,8 @@ variable "application" {
     resources = list(string)
   })
 }
+
+variable "kubeconfig" {
+  description = "Raw kubeconfig. creating dependency between modules."
+  type = string
+}

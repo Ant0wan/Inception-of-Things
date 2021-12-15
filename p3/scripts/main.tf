@@ -6,4 +6,5 @@ module "k3d" {
 module "kustomize" {
   source      = "./kustomize"
   application = var.argocd
+  kubeconfig  = module.k3d.kube_config
 }

@@ -1,6 +1,6 @@
 provider "kustomization" {
   #kubeconfig_path = "~/.kube/config"
-  kubeconfig_raw = module.k3d.kubeconfig.content
+  kubeconfig_raw = var.kubeconfig
 }
 
 data "kustomization_overlay" "application" {
