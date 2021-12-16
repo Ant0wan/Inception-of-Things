@@ -1,5 +1,11 @@
-module "p3" {
-	source = "../p3/scripts/"
+module "k3d" {
+	source = "../p3/scripts/k3d/"
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = module.k3d.kube_config
+  }
 }
 
 #
