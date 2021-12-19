@@ -1,0 +1,12 @@
+## This is an example base values.yaml. It shows how to configure a domain, externalIp as well as smtp
+global:
+  ingress:
+    enabled: true  # Default, present here to be explicit.
+    class: traefik # Alter the `kubernetes.io/ingress.class` annotation chart wide.
+  hosts:
+    domain: k3d.local
+    externalIP: 10.0.0.0
+  smtp:
+    enabled: false
+nginx-ingress:
+  enabled: false   # Disable the deployment of the in-chart NGINX Ingress provider.
