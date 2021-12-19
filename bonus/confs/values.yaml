@@ -8,8 +8,8 @@ global:
   rails:
     bootsnap:
       enabled: false
-        #  shell:
-        #    port: 32022
+  shell:
+    port: 32022
 certmanager:
   install: false
 nginx-ingress:
@@ -18,19 +18,19 @@ prometheus:
   install: false
 gitlab-runner:
   install: false
-    #gitlab:
-    #  webservice:
-    #    minReplicas: 1
-    #    maxReplicas: 1
-    #  sidekiq:
-    #    minReplicas: 1
-    #    maxReplicas: 1
-    #  gitlab-shell:
-    #    minReplicas: 1
-    #    maxReplicas: 1
-    #    service:
-    #      type: NodePort
-    #      nodePort: 32022
+gitlab:
+  webservice:
+    minReplicas: 1
+    maxReplicas: 1
+  sidekiq:
+    minReplicas: 1
+    maxReplicas: 1
+  gitlab-shell:
+    minReplicas: 1
+    maxReplicas: 1
+    service:
+      type: NodePort
+      nodePort: 32022
 registry:
   hpa:
     minReplicas: 1
