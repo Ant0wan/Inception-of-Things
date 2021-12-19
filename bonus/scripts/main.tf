@@ -12,17 +12,16 @@ module "k3d" {
 locals {
   raw_data = jsondecode(file(pathexpand("../../p3/scripts/terraform.tfvars.json")))
   cluster  = local.raw_data.cluster
+
+  raw_values = jsondecode(file(pathexpand("../confs/gitlab.tfvars.json")))
 }
 
-# Need to get value from tfvars.json and eventually put helm config in set instead of values.yaml
-#resource "helm_release" "values" {
-#  name = "gitlab"
-#
-#  repository = "https://charts.bitnami.com/bitnami"
-#  chart      = "nginx-ingress-controller"
-#
-#  set {
-#    name  = "service.type"
-#    value = "ClusterIP"
-#  }
-#}
+resource "helm_release" "values" {
+  name       = local.raw_values.name
+  repository = local.raw_values.repository
+  chart      = local.raw_values.chart
+
+  values = [
+    "${file(pathexpand("../confs/values.yaml"))}"
+  ]
+}
