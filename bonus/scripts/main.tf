@@ -1,6 +1,7 @@
-locals {
-  raw_data = jsondecode(file(pathexpand("../../p3/scripts/terraform.tfvars.json")))
-  cluster  = local.raw_data.cluster
+provider "helm" {
+  kubernetes {
+    config_path = module.k3d.kube_config
+  }
 }
 
 module "k3d" {
@@ -8,35 +9,20 @@ module "k3d" {
   cluster = local.cluster
 }
 
-#provider "helm" {
-#  kubernetes {
-#    config_path = module.k3d.kube_config
-#  }
-#}
+locals {
+  raw_data = jsondecode(file(pathexpand("../../p3/scripts/terraform.tfvars.json")))
+  cluster  = local.raw_data.cluster
+}
 
-
-
+# Need to get value from tfvars.json and eventually put helm config in set instead of values.yaml
+#resource "helm_release" "values" {
+#  name = "gitlab"
 #
-#module "gitlab" {
+#  repository = "https://charts.bitnami.com/bitnami"
+#  chart      = "nginx-ingress-controller"
 #
-#  provider "helm" {
-#    kubernetes {
-#      config_path = "~/.kube/config"
-#    }
-#  }
-#
-#
-#
-#
-#  resource "helm_release" "nginx_ingress" {
-#    name = "nginx-ingress-controller"
-#
-#    repository = "https://charts.bitnami.com/bitnami"
-#    chart      = "nginx-ingress-controller"
-#
-#    set {
-#      name  = "service.type"
-#      value = "ClusterIP"
-#    }
+#  set {
+#    name  = "service.type"
+#    value = "ClusterIP"
 #  }
 #}
