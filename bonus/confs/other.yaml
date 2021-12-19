@@ -1,12 +1,8 @@
 global:
   edition: ce
   ingress:
-    annotations:
-      kubernetes\.io/tls-acme: true
     configureCertmanager: false
     class: traefik
-    tls:
-      enabled: true
   hosts:
     domain: k3d.local
   rails:
