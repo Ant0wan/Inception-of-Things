@@ -1,0 +1,37 @@
+global:
+  ingress:
+    configureCertmanager: false
+    class: "nginx"
+  hosts:
+    domain: k3d.local
+    externalIP: 1.1.1.42
+  rails:
+    bootsnap:
+      enabled: false
+  shell:
+    port: 22
+certmanager:
+  install: false
+nginx-ingress:
+  enabled: true
+prometheus:
+  install: false
+gitlab-runner:
+  install: false
+gitlab:
+  webservice:
+    minReplicas: 1
+    maxReplicas: 1
+  sidekiq:
+    minReplicas: 1
+    maxReplicas: 1
+  gitlab-shell:
+    minReplicas: 1
+    maxReplicas: 1
+    service:
+      type: LoadBalancer
+      nodePort: 22
+registry:
+  hpa:
+    minReplicas: 1
+    maxReplicas: 2

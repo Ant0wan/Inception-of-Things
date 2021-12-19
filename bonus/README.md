@@ -13,6 +13,10 @@ terraform plan
 terraform apply
 ```
 
+```shell
+helm upgrade --install gitlab gitlab/gitlab --timeout 600s --values=confs/values-k3d.yaml
+```
+
 https://registry.terraform.io/providers/hashicorp/helm/latest/docs
 
 variables:
