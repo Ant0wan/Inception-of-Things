@@ -1,5 +1,4 @@
 provider "kustomization" {
-  #kubeconfig_path = "~/.kube/config"
   kubeconfig_raw = var.kubeconfig
 }
 

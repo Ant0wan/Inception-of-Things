@@ -1,6 +1,11 @@
+locals {
+  raw_data     = jsondecode(file(pathexpand("../p3/scripts/terraform.tfvars.json")))
+  cluster = local.raw_data.cluster
+}
+
 module "k3d" {
 	source = "../p3/scripts/k3d/"
-	cluster = var.cluster
+	cluster = local.cluster
 }
 
 provider "helm" {
