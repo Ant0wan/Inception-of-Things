@@ -1,6 +1,7 @@
 provider "helm" {
   kubernetes {
-    config_path = module.k3d.kube_config
+
+    config_path = module.k3d.kube_config # Here Helm is not taking raw config but file only. Need a trick !
   }
 }
 
