@@ -10,7 +10,7 @@ variable "cluster" {
     agent_count  = number
   })
   default = {
-    name         = ["abarthel"]
+    name         = ["k3d-cluster"]
     port         = 6550
     ip           = "0.0.0.0"
     lb_port      = null
