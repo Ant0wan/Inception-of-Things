@@ -1,3 +1,18 @@
+
+#### Execute
+
+```shell
+terraform init
+```
+
+```shell
+terraform plan -var-file="../p3/scripts/terraform.tfvars"
+```
+
+```shell
+terraform apply -var-file="../p3/scripts/terraform.tfvars"
+```
+
 https://registry.terraform.io/providers/hashicorp/helm/latest/docs
 
 variables:

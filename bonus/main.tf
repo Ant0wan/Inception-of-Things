@@ -1,5 +1,6 @@
 module "k3d" {
 	source = "../p3/scripts/k3d/"
+	cluster = var.cluster
 }
 
 provider "helm" {
