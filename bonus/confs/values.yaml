@@ -4,12 +4,11 @@ global:
     class: "nginx"
   hosts:
     domain: k3d.local
-    externalIP: 1.1.1.42
   rails:
     bootsnap:
       enabled: false
   shell:
-    port: 22
+    port: 32022
 certmanager:
   install: false
 nginx-ingress:
@@ -29,9 +28,9 @@ gitlab:
     minReplicas: 1
     maxReplicas: 1
     service:
-      type: LoadBalancer
-      nodePort: 22
+      type: NodePort
+      nodePort: 32022
 registry:
   hpa:
     minReplicas: 1
-    maxReplicas: 2
+    maxReplicas: 1
