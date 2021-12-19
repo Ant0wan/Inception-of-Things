@@ -6,11 +6,11 @@ terraform init
 ```
 
 ```shell
-terraform plan -var-file="../p3/scripts/terraform.tfvars"
+terraform plan
 ```
 
 ```shell
-terraform apply -var-file="../p3/scripts/terraform.tfvars"
+terraform apply
 ```
 
 https://registry.terraform.io/providers/hashicorp/helm/latest/docs
