@@ -17,3 +17,7 @@ output "api_port" {
 output "kube_config" {
   value = data.local_file.kubeconfig.content
 }
+
+output "kube_path" {
+  value = local.kube_path
+}

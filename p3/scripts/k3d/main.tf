@@ -4,6 +4,7 @@ resource "random_integer" "port" {
 }
 
 locals {
+  kube_path = "~/.kube/config"
   host_lb_port = (var.cluster.host_lb_port != "" ? var.cluster.host_lb_port : random_integer.port.result)
 }
 
@@ -37,7 +38,7 @@ data "docker_network" "k3d" {
 }
 
 data "local_file" "kubeconfig" {
-  filename = pathexpand("~/.kube/config")
+  filename = pathexpand(local.kube_path)
   depends_on = [
     null_resource.cluster
   ]
