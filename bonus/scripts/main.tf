@@ -22,9 +22,14 @@ locals {
 }
 
 resource "helm_release" "values" {
-  name       = local.raw_values.name
-  repository = local.raw_values.repository
-  chart      = local.raw_values.chart
+  name             = local.raw_values.name
+  namespace        = local.raw_values.namespace
+  create_namespace = local.raw_values.create_namespace
+  cleanup_on_fail  = local.raw_values.cleanup_on_fail
+  wait             = local.raw_values.wait
+  timeout          = local.raw_values.timeout
+  repository       = local.raw_values.repository
+  chart            = local.raw_values.chart
 
   values = [
     "${file(pathexpand("../confs/values.yaml"))}"
