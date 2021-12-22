@@ -2,7 +2,7 @@ global:
   edition: ce
   ingress:
     annotations:
-      kubernetes\.io/tls-acme: true
+      kubernetes.io/tls-acme: true
     configureCertmanager: false
     class: traefik
     tls:
