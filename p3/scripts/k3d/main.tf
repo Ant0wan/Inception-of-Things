@@ -4,7 +4,7 @@ resource "random_integer" "port" {
 }
 
 locals {
-  kube_path = "~/.kube/config"
+  kube_path    = "~/.kube/config"
   host_lb_port = (var.cluster.host_lb_port != "" ? var.cluster.host_lb_port : random_integer.port.result)
 }
 
