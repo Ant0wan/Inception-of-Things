@@ -1,6 +1,6 @@
 terraform {
   backend "local" {
-    path = "terraform.tfstate"
+    path = "../../terraform.tfstate"
   }
   required_providers {
     helm = {
