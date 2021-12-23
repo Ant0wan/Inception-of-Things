@@ -179,3 +179,16 @@ patch password Secret
 2886 type: Opaque
 ```
 
+
+
+
+
+
+```
+sudo apt install terraform
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install terraform
+wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
+```
