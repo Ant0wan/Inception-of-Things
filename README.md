@@ -9,9 +9,9 @@
 </div>
 
 <div align="center">
-	
+
 [![Terraform](https://github.com/Ant0wan/Inception-of-Things/actions/workflows/terraform.yml/badge.svg)](https://github.com/Ant0wan/Inception-of-Things/actions/workflows/terraform.yml)
-	
+
 </div>
 
 <!-- TABLE OF CONTENTS -->
