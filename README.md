@@ -8,6 +8,11 @@
   </p>
 </div>
 
+<div align="center">
+	
+[![Terraform](https://github.com/Ant0wan/Inception-of-Things/actions/workflows/terraform.yml/badge.svg)](https://github.com/Ant0wan/Inception-of-Things/actions/workflows/terraform.yml)
+	
+</div>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -34,7 +39,6 @@
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
-
 
 ---
 ### Part 1: K3s on Vagrant
