@@ -1,24 +1,22 @@
+locals {
+  kubeconf_path = "~/.kube/config"
+
+  raw_data   = jsondecode(file(pathexpand("../../p3/scripts/terraform.tfvars.json")))
+  raw_values = jsondecode(file(pathexpand("../confs/gitlab.tfvars.json")))
+
+  cluster = local.raw_data.cluster
+}
+
 module "k3d" {
+  count   = fileexists(pathexpand(local.kubeconf_path)) ? 0 : 1
   source  = "../../p3/scripts/k3d/"
   cluster = local.cluster
 }
 
-resource "local_file" "kube_config" {
-  content  = module.k3d.kube_config
-  filename = "${path.module}/kube_config"
-}
-
 provider "helm" {
   kubernetes {
-    config_path = local_file.kube_config.filename
+    config_path = local.kubeconf_path
   }
-}
-
-locals {
-  raw_data = jsondecode(file(pathexpand("../../p3/scripts/terraform.tfvars.json")))
-  cluster  = local.raw_data.cluster
-
-  raw_values = jsondecode(file(pathexpand("../confs/gitlab.tfvars.json")))
 }
 
 resource "helm_release" "values" {
