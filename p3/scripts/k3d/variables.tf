@@ -22,6 +22,6 @@ variable "cluster" {
 
 variable "ingressClass" {
   description = "Boolean for Traefik ingressClass."
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }

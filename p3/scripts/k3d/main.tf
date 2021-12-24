@@ -65,7 +65,7 @@ data "local_file" "kubeconfig" {
 }
 
 module "kubernetes" {
-  count = var.ingressClass ? 1 : 0
+  count  = var.ingressClass ? 1 : 0
   source = "./kubernetes"
 
   depends_on = [
