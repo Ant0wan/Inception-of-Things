@@ -8,7 +8,6 @@ metadata:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
 spec:
-  ingressClassName: traefik
   rules:
   - host: argocd.local
     http:
