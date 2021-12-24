@@ -1,8 +1,9 @@
 resource "random_integer" "port" {
   min = 8000
   max = 8099
+
   lifecycle {
-    prevent_destroy = true
+    ignore_changes = all
   }
 }
 
@@ -13,6 +14,7 @@ locals {
 
 resource "null_resource" "cluster" {
   for_each = toset(var.cluster.name)
+
   triggers = {
     agent_count  = var.cluster.agent_count
     server_count = var.cluster.server_count
@@ -24,23 +26,26 @@ resource "null_resource" "cluster" {
   }
 
   lifecycle {
-    prevent_destroy = true
+    ignore_changes = all
   }
 }
 
 resource "null_resource" "cluster_delete" {
   for_each = toset(var.cluster.name)
+
   provisioner "local-exec" {
     command = "k3d cluster delete ${each.key}"
     when    = destroy
   }
+
   lifecycle {
-    prevent_destroy = true
+    ignore_changes = all
   }
 }
 
 data "docker_network" "k3d" {
   for_each = toset(var.cluster.name)
+
   depends_on = [
     null_resource.cluster
   ]
@@ -49,6 +54,7 @@ data "docker_network" "k3d" {
 
 data "local_file" "kubeconfig" {
   filename = pathexpand(local.kube_path)
+
   depends_on = [
     null_resource.cluster
   ]
