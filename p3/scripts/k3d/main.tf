@@ -1,6 +1,9 @@
 resource "random_integer" "port" {
   min = 8000
   max = 8099
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 locals {
@@ -19,6 +22,10 @@ resource "null_resource" "cluster" {
   provisioner "local-exec" {
     command = "k3d cluster create ${each.key} --agents ${var.cluster.agent_count} --servers ${var.cluster.server_count} --api-port ${var.cluster.ip}:${var.cluster.port} --port ${local.host_lb_port}:${var.cluster.lb_port}@loadbalancer"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "null_resource" "cluster_delete" {
@@ -26,6 +33,9 @@ resource "null_resource" "cluster_delete" {
   provisioner "local-exec" {
     command = "k3d cluster delete ${each.key}"
     when    = destroy
+  }
+  lifecycle {
+    prevent_destroy = true
   }
 }
 
