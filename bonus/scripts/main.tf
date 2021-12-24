@@ -10,6 +10,8 @@ locals {
 module "k3d" {
   source  = "../../p3/scripts/k3d/"
   cluster = local.cluster
+
+  ingressClass = false
 }
 
 provider "helm" {
