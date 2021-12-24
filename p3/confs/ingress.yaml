@@ -8,6 +8,7 @@ metadata:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
 spec:
+  ingressClassName: traefik
   rules:
   - host: argocd.local
     http:
@@ -19,4 +20,3 @@ spec:
             name: argocd-server
             port:
               number: 80
-

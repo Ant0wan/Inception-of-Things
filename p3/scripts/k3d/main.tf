@@ -1,3 +1,7 @@
+provider "kubernetes" {
+  config_path    = "~/.kube/config"
+}
+
 resource "random_integer" "port" {
   min = 8000
   max = 8099
@@ -54,6 +58,20 @@ data "docker_network" "k3d" {
 
 data "local_file" "kubeconfig" {
   filename = pathexpand(local.kube_path)
+
+  depends_on = [
+    null_resource.cluster
+  ]
+}
+
+resource "kubernetes_ingress_class_v1" "traefik" {
+  metadata {
+    name = "traefik"
+  }
+
+  spec {
+    controller = "traefik.io/ingress-controller"
+  }
 
   depends_on = [
     null_resource.cluster
