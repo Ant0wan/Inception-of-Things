@@ -64,14 +64,9 @@ data "local_file" "kubeconfig" {
   ]
 }
 
-resource "kubernetes_ingress_class_v1" "traefik" {
-  metadata {
-    name = "traefik"
-  }
-
-  spec {
-    controller = "traefik.io/ingress-controller"
-  }
+module "kubernetes" {
+  count = var.ingressClass ? 1 : 0
+  source = "./kubernetes"
 
   depends_on = [
     null_resource.cluster

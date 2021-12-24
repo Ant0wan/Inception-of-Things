@@ -19,3 +19,9 @@ variable "cluster" {
     agent_count  = 0
   }
 }
+
+variable "ingressClass" {
+  description = "Boolean for Traefik ingressClass."
+  type = bool
+  default = true
+}
