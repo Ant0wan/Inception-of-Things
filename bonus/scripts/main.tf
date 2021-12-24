@@ -8,7 +8,6 @@ locals {
 }
 
 module "k3d" {
-  count   = fileexists(pathexpand(local.kubeconf_path)) ? 0 : 1
   source  = "../../p3/scripts/k3d/"
   cluster = local.cluster
 }
