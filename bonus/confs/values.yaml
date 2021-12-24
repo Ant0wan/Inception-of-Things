@@ -1,13 +1,12 @@
 global:
   edition: ce
   ingress:
-    enabled: true
     class: traefik
-    configureCertmanager: false
     annotations:
       kubernetes.io/tls-acme: true
     tls:
       enabled: true
+    configureCertmanager: false
   hosts:
     domain: local
   rails:
