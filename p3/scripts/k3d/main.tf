@@ -1,5 +1,5 @@
 provider "kubernetes" {
-  config_path    = "~/.kube/config"
+  config_path = data.local_file.kubeconfig.filename
 }
 
 resource "random_integer" "port" {
