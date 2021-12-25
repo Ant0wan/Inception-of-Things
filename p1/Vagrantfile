@@ -11,14 +11,14 @@ cluster = {
 		:box => "centos/8",
 		:url => "http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box",
 		:cpus => 1,
-		:mem => 512,
+		:mem => 1024,
 		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/server.yaml")),
 		:k3s_arg => "server" },
   "agent" => {
 		:box => "centos/8",
 		:url => "http://cloud.centos.org/centos/8/x86_64/images/CentOS-8-Vagrant-8.1.1911-20200113.3.x86_64.vagrant-virtualbox.box",
 		:cpus => 1,
-		:mem => 512,
+		:mem => 1042,
 		:yaml => YAML.load_file(File.join(File.dirname(__FILE__), "confs/agent.yaml")),
 		:k3s_arg => "agent" },
 }
