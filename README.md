@@ -31,64 +31,65 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 ---
-### Part 1: K3s on Vagrant
+
+### About The Project
+
+Small stack using various tech in order to deploy a local Kubernetes cluster.
+
+
+#### Built With
+
+- Vagrant
+
+- K3s
+
+- K3d
+
+- Terraform
+
+- Docker
+
+- Kubernetes (kubectl)
+
+
+### Getting Started
+
+#### Prerequisites
+
+A linux Debian-like distribution.
+
+Suggested: `Ubuntu 20.04`
+
+
+#### Installation
 
 Install VirtualBox and Vagrant using the following scripts:
 
-```=shell
+```shell
 #!/usr/bin/env bash
 set -e
 if command -v vagrant --version && command -v VBoxManage --version; then
 	exit 0
 fi
 egrep -ac "vmx|svm" /proc/cpuinfo &>/dev/null
-if [ ${pk} == "apt" ]; then
-	sudo apt install -y \
-		virtualbox-dkms \
-		virtualbox-guest-additions-iso \
-		virtualbox-guest-utils \
-		virtualbox-qt \
-		virtualbox
+sudo apt install -y \
+	virtualbox-dkms \
+	virtualbox-guest-additions-iso \
+	virtualbox-guest-utils \
+	virtualbox-qt \
+	virtualbox
 fi
-sudo ${pk} install -y vagrant
+sudo apt install -y vagrant
 vagrant plugin install vagrant-vbguest
 ```
 
+Then execute this script to install required packages:
 
-```=shell
-#!/usr/bin/env bash
-set -ex
-_package_manager_detect() {
-	command -v apt &>/dev/null && export pk="apt" && return
-	command -v yum &>/dev/null && export pk="yum" && return
-	_error "No supported package manager installed on system"
-	_error "(supported: apt or yum)"
-	exit 1
-}
-_package_manager_detect
-source virtualbox.sh
-```
-
----
-### Part 2: Three simple apps on K3s
-
-
----
-### Part 3: K3d with Argo CD
-
-Script to install required packages:
-
-```=shell
+```shell
 #!/usr/bin/env bash
 set -ex
 export TAG=v5.0.0
@@ -183,10 +184,7 @@ patch password Secret
 2886 type: Opaque
 ```
 
-
-
-
-
+Quick script for `p3`
 
 ```
 sudo apt install terraform
